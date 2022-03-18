@@ -222,7 +222,9 @@ a:hover {
     float: left;
     width: 3%;
     height: 100%;
-    box-shadow: 3px 0 8px -2px #000 inset;
+    box-shadow: 3px 0 8px -2px #444 inset;
+    background-image: url("/res/paper.png");
+    background-repeat: repeat;
 }
 
 .tray {
@@ -266,7 +268,9 @@ a:hover {
     overflow-y: scroll;
     padding-left: 3%;
     padding-right: 3%;
-    box-shadow: 3px 0 8px -2px #000 inset;
+    box-shadow: 3px 0 8px -2px #444 inset;
+    background-image: url("/res/paper1.png");
+    background-repeat: repeat;
 }
 
 #contents .top {
@@ -408,7 +412,8 @@ a:hover {
         width: 100%;
         height: auto;
     }
-    .tray {
+    #tray_container {
+        display: inline;
         width: 100%;
         height: auto;
         box-shadow: none;

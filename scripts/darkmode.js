@@ -17,7 +17,7 @@ function light() {
 
     var hasshadows = document.getElementsByClassName("has_shadow");
     for (var i = 0; i < hasshadows.length; ++i) {
-        hasshadows[i].style.boxShadow = "3px 0 8px -2px #000 inset "
+        hasshadows[i].style.boxShadow = "3px 0 8px -2px #444 inset "
     }
 }
 
