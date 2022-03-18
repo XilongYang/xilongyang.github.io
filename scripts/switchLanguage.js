@@ -3,7 +3,6 @@ function switchLanguageBoard() {
     if (switcher.flag == "on") {
         switcher.flag = "off";
         document.getElementById("language_button_1").style.backgroundColor = "transparent";
-        document.getElementById("language_button_1").style.color = "#ccc";
         document.getElementById("language_button_3").style.display = "none";
         document.getElementById("language_button_2").style.display = "none";
     } else {

@@ -4,6 +4,7 @@ function dark() {
         nondarks[i].style.filter = "invert(1)";
     }
 
+    if (screen.width <= 950) return;
     var hasshadows = document.getElementsByClassName("has_shadow");
     for (var i = 0; i < hasshadows.length; ++i) {
         hasshadows[i].style.boxShadow = "3px 0 8px -2px #fff inset "
@@ -15,6 +16,7 @@ function light() {
         nondarks[i].style.filter = "invert(0)";
     }
 
+    if (screen.width <= 950) return;
     var hasshadows = document.getElementsByClassName("has_shadow");
     for (var i = 0; i < hasshadows.length; ++i) {
         hasshadows[i].style.boxShadow = "3px 0 8px -2px #444 inset "
