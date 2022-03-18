@@ -61,11 +61,11 @@ function appGenerate() {
     , "<i class='material-icons'>terminal</i>", "icons_tray");
 
     new Application("blog_life", "Xilong's Life"
-    , '<iframe class="fake_window_contents non_dark" id="blog_life-content" loading="lazy" src="/zh/life/" frameborder="0"></iframe>'
+    , '<iframe class="fake_window_contents non_dark" id="blog_life-content" loading="lazy" src="/life/" frameborder="0"></iframe>'
     , "<i class='material-icons non_dark'>podcasts</i>", "icons_tray");
 
-    new Application("blog_zh", "在泥坑里跳来跳去"
-    , '<iframe class="fake_window_contents non_dark" id="blog_zh-content" loading="lazy" src="/zh/blog/" frameborder="0"></iframe>'
+    new Application("blog_zh", "Xilong's Blog"
+    , '<iframe class="fake_window_contents non_dark" id="blog_zh-content" loading="lazy" src="/blog/" frameborder="0"></iframe>'
     , "<i class='material-icons non_dark'>podcasts</i>", "icons_tray");
 
     gitalk_generator.render('gitalk');

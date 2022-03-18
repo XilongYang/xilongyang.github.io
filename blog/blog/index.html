@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -20,11 +20,123 @@
 
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
-    KEEP.hexo_config = {"hostname":"xilong.site","root":"/blog/","language":"en","path":"search.xml"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#377CF1","avatar":"../../res/me.jpg","favicon":"../../res/favicon.ico","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":false,"background_img":null,"description":"To be or not to be, 这么着还是那么着。"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
-    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    KEEP.hexo_config = {"hostname":"xilong.site","root":"/blog/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#D31919","avatar":"../../res/me.jpg","favicon":"../../res/favicon.ico","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":false,"background_img":null,"description":"To be or not to be, 这么着还是那么着。"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
   </script>
-<meta name="generator" content="Hexo 5.4.1"></head>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 
 <body>
@@ -60,7 +172,7 @@
                             <a class=""
                                href="/blog/"
                             >
-                                HOME
+                                首页
                             </a>
                         </li>
                     
@@ -68,7 +180,7 @@
                             <a class=""
                                href="/blog/archives"
                             >
-                                ARCHIVES
+                                归档
                             </a>
                         </li>
                     
@@ -76,7 +188,7 @@
                             <a class=""
                                href="/blog/categories"
                             >
-                                CATEGORIES
+                                分类
                             </a>
                         </li>
                     
@@ -84,7 +196,7 @@
                             <a class=""
                                href="/blog/../../"
                             >
-                                ABOUT
+                                关于
                             </a>
                         </li>
                     
@@ -111,22 +223,22 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/blog/">HOME</a>
+                       href="/blog/">首页</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/blog/archives">ARCHIVES</a>
+                       href="/blog/archives">归档</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/blog/categories">CATEGORIES</a>
+                       href="/blog/categories">分类</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/blog/../../">ABOUT</a>
+                       href="/blog/../../">关于</a>
                 </li>
             
         </ul>
@@ -152,27 +264,296 @@
                 
 
                 <h3 class="home-article-title">
-                    <a href="/blog/2019/08/18/0001-C:Floating_point_numbers_IEEE754/">
-                        C语言中浮点数的二进制表示（IEEE754）
+                    <a href="/blog/2022/03/11/0036-Googletest/">
+                        使用Googletest进行单元测试：概念篇
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        Googletest介绍Googletest是Google开发的C++测试框架，可以方便我们为代码编写测试。因为这个框架是基于公共的xUnit测试框架，有其它测试框架使用经验的人会觉得非常熟悉。即使没有接触过其它测试框架，也能在很短的时间内上手。
+什...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Mar 11 2022 20:36:29 GMT+0800">2022-03-11</span></span>
+        
+        
+    </div>
+
+    <a href="/blog/2022/03/11/0036-Googletest/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/blog/2022/01/13/0035-CF-R765-B/">
+                        CF-R765-B题解
                     </a>
                 </h3>
 
                 <div class="home-article-content markdown-body">
                     
                         <blockquote>
-<p>前言：最近在C语言学习中遇到了浮点运算精度的问题， 在查找资料后发现是浮点数的储存方式引起的问题，在此做一个记录。</p>
+<p><a class="link" target="_blank" rel="noopener" href="https://codeforces.com/contest/1625">Codeforces Round #765<i class="fas fa-external-link-alt"></i></a>被橄榄了。但B与C两题都刚好处在有思路而没解出来的难度，是很好的学习机会。</p>
 </blockquote>
                     
                 </div>
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Aug 18 2019 06:36:29 GMT+0800">2019-08-18</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Jan 13 2022 20:36:29 GMT+0800">2022-01-13</span></span>
         
         
     </div>
 
-    <a href="/blog/2019/08/18/0001-C:Floating_point_numbers_IEEE754/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="/blog/2022/01/13/0035-CF-R765-B/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/blog/2022/01/10/0034-Re0:Haskell_07/">
+                        从零开始的Haskell（七）——折叠与幺半群
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <blockquote>
+<p>系列第七篇，介绍了更一般性的折叠以及幺半群。</p>
+</blockquote>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Mon Jan 10 2022 20:32:00 GMT+0800">2022-01-10</span></span>
+        
+        
+    </div>
+
+    <a href="/blog/2022/01/10/0034-Re0:Haskell_07/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/blog/2022/01/08/0033-Haskell:operator_and_lazy/">
+                        Haskell：理解惰性求值与运算符优先级
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <blockquote>
+<p>做 <a class="link"   target="_blank" rel="noopener" href="https://www.seas.upenn.edu/~cis194/spring13/hw/06-laziness.pdf" >CIS 194 HomeWork6<i class="fas fa-external-link-alt"></i></a>时遇到了各种思维方面的困难。试图通过梳理它们加深对运算符优先级和惰性求值的理解。</p>
+</blockquote>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat Jan 08 2022 15:32:00 GMT+0800">2022-01-08</span></span>
+        
+        
+    </div>
+
+    <a href="/blog/2022/01/08/0033-Haskell:operator_and_lazy/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/blog/2021/12/11/0032-APUE_chapter2/">
+                        APUE学习笔记01——UNIX标准与限制
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <blockquote>
+<p>本章主要介绍了UNIX的标准与限制，说明了三个标准范围ISO C、POSIX的SUS，并且对三个运行时限制函数sysconf、pathconf和fpathconf进行了介绍。</p>
+</blockquote>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat Dec 11 2021 20:36:29 GMT+0800">2021-12-11</span></span>
+        
+        
+    </div>
+
+    <a href="/blog/2021/12/11/0032-APUE_chapter2/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/blog/2021/11/02/0031-string_matching_automaton/">
+                        字符串匹配之AC自动机
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <blockquote>
+<p>AC自动机是一种综合了Tire树与KMP算法思想的字符串匹配算法，特点是同时进行多个模式串的匹配。</p>
+</blockquote>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Nov 02 2021 20:36:29 GMT+0800">2021-11-02</span></span>
+        
+        
+    </div>
+
+    <a href="/blog/2021/11/02/0031-string_matching_automaton/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/blog/2021/11/01/0030-string_matching_KMP/">
+                        字符串匹配之KMP
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <blockquote>
+<p>字符串匹配算法半壁江山之KMP算法。</p>
+</blockquote>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Mon Nov 01 2021 20:36:29 GMT+0800">2021-11-01</span></span>
+        
+        
+    </div>
+
+    <a href="/blog/2021/11/01/0030-string_matching_KMP/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/blog/2021/10/27/0029-APUE_chapter1/">
+                        APUE学习笔记00——UNIX基础
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <blockquote>
+<p>APUE这本书实在是干而松散，不自己消化消化确实看不下去。这篇文章简单总结一下前两章，Unix基础与标准。</p>
+</blockquote>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Wed Oct 27 2021 20:36:29 GMT+0800">2021-10-27</span></span>
+        
+        
+    </div>
+
+    <a href="/blog/2021/10/27/0029-APUE_chapter1/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/blog/2021/09/23/0028-RB_Tree_C++/">
+                        红黑树概念解析与C++实现
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <blockquote>
+<p>整理了红黑树的性质与基本操作的C++实现</p>
+</blockquote>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Sep 23 2021 14:32:06 GMT+0800">2021-09-23</span></span>
+        
+        
+    </div>
+
+    <a href="/blog/2021/09/23/0028-RB_Tree_C++/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/blog/2021/09/19/0027-Java:Getting_started_base_on_C++/">
+                        基于C++的Java入门笔记
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <blockquote>
+<p>前言：Java的语法和C++实在是很相似，这一方面方便了C++选手们上手Java，另一方面也使得我们在使用Java的时候总是串语法。不得不写篇文章总结一下Java的语法差异。</p>
+</blockquote>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Sep 19 2021 20:36:29 GMT+0800">2021-09-19</span></span>
+        
+        
+    </div>
+
+    <a href="/blog/2021/09/19/0027-Java:Getting_started_base_on_C++/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -183,6 +564,10 @@
         <div class="paginator">
     
 
+    
+        <a class="next btn"
+           href="/blog/blog/page/2/"
+        >下一页</a>
     
 </div>
 
@@ -206,9 +591,9 @@
             
             2022&nbsp;&nbsp;<a href="/">Xilong Yang</a>
         </div>
-        <span class="post-count">Total words: 641</span>
+        <span class="post-count">本站总字数：69.1k</span>
         <div class="theme-info info-item">
-            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
         </div>
         
         
@@ -281,7 +666,7 @@
                 <input autocomplete="off"
                        autocorrect="off"
                        autocapitalize="off"
-                       placeholder="Search..."
+                       placeholder="搜索..."
                        spellcheck="false"
                        type="search"
                        class="search-input"
