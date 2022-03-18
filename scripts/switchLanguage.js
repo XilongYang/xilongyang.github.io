@@ -3,13 +3,11 @@ function switchLanguageBoard() {
     if (switcher.flag == "on") {
         switcher.flag = "off";
         document.getElementById("language_button_1").style.backgroundColor = "transparent";
-        document.getElementById("language_button_1").style.color = "#000";
+        document.getElementById("language_button_1").style.color = "#ccc";
         document.getElementById("language_button_3").style.display = "none";
         document.getElementById("language_button_2").style.display = "none";
     } else {
         switcher.flag = "on";
-        document.getElementById("language_button_1").style.backgroundColor = "#222";
-        document.getElementById("language_button_1").style.color = "#fff";
         document.getElementById("language_button_2").style.animation = "fadein 0.5s";
         document.getElementById("language_button_2").style.display = "inline";
         document.getElementById("language_button_3").style.animation = "fadein 1s";
@@ -29,7 +27,7 @@ function switchLanguage(lang) {
         document.getElementById("name").innerHTML = "Xilong Yang";
         document.getElementById("occupation").innerHTML = "Programer";
         document.getElementById("language_label").innerHTML = "Language:";
-        document.getElementById("stamp_intro").innerHTML = "Simple Two-Way Active Measure Protocol(IETF RFC8762).";
+        document.getElementById("stamp_intro").innerHTML = "Simple Two-Way Active Measure Protocol (IETF RFC8762).";
         document.getElementById("this_site").innerHTML = "This site";
         document.getElementById("this_site_intro").innerHTML = "A static site that simulates a OS.";
         document.getElementById("misc").innerHTML = '<a href="https://github.com/XilongYang?tab=repositories">misc.</a>';
@@ -39,7 +37,6 @@ function switchLanguage(lang) {
         document.getElementById("intro_email").innerHTML = 'You can contact me though email <a href="mailto:xilong.yang@foxmail.com">xilong.yang@foxmail.com</a>';
         document.getElementById("links_label").innerHTML = "Links";
         document.getElementById("friend_label").innerHTML = "Friends";
-        document.getElementById("music_label").innerHTML = "Playlist";
         document.getElementById("nomore").innerHTML = '* no more info.';
     } else if (lang == "zh") {
         document.getElementById("language_button_label_1").innerHTML = '中文';
@@ -62,7 +59,6 @@ function switchLanguage(lang) {
         document.getElementById("intro_email").innerHTML = '可以通过邮件<a href="mailto:xilong.yang@foxmail.com">xilong.yang@foxmail.com</a>联系我。';
         document.getElementById("links_label").innerHTML = "链接";
         document.getElementById("friend_label").innerHTML = "朋友";
-        document.getElementById("music_label").innerHTML = "播放列表";
         document.getElementById("nomore").innerHTML = '* 没有更多信息了。';
     } else if (lang == "jp") {
         document.getElementById("language_button_label_1").innerHTML = '日本語';
@@ -85,7 +81,6 @@ function switchLanguage(lang) {
         document.getElementById("intro_email").innerHTML = 'メール<a href="mailto:xilong.yang@foxmail.com">xilong.yang@foxmail.com</a>で私に連絡することができます。';
         document.getElementById("links_label").innerHTML = "リンク";
         document.getElementById("friend_label").innerHTML = "友人";
-        document.getElementById("music_label").innerHTML = "プレイリスト";
         document.getElementById("nomore").innerHTML = '* これ以上の情報はありません。';
     }
     switchLanguageBoard();

@@ -15,33 +15,47 @@ onkeydown="dragMode(event)" onkeyup="clearDragMode(event)">
         <link href="/res/fontawesome-free-6.0.0-web/css/all.min.css" rel="stylesheet">
         <link href="/default.css" rel="stylesheet">
         <script src="/scripts/animation.js"></script>
+        <script src="/scripts/darkmode.js"></script>
         <script src="/scripts/switchLanguage.js"></script>
         <script src="/scripts/windowSimulator.js"></script>
         <script src="/scripts/appGenerator.js"></script>
-        <script src="/scripts/darkmode.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
         <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
     </head>
-    <body id="body" onscroll="fade()" onload="appGenerate();fade()">
+    <body id="body" onload="appGenerate()">
         <div class="darkmode-mask" id="darkmode-mask"></div>
-        <div id="header">
-            <h1><a id="name" href="/">Xilong Yang</a></h1>
-            <span class="non_important" id="occupation">Programer</span><br>
-            <div id="languages">
-                <span id="language_label">Language:</span>
-                <span id="language_switcher" flag="off">
-                    <span class="language_button" id="language_button_1" onclick="switchLanguageBoard()">
-                        <span id="language_button_label_1">English</span> <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    </span>
-                    <span class="language_button" id="language_button_2" onclick="switchLanguage('zh')">
-                        <span id="language_button_label_2"> 中文</span> <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    </span>
-                    <span class="language_button" id="language_button_3" onclick="switchLanguage('jp')">
-                        <span id="language_button_label_3"> 日本語</span> 
-                    </span>
-                </span>
+        <div id="header-container" class="non_dark">
+            <div class="top"></div>
+            <div id="header-background">
+                <div id="header">
+                    <h1><a id="name" href="/">Xilong Yang</a></h1>
+                    <div id="occupation">Programer</div>
+                    <div id="languages">
+                        <span id="language_label">Language:</span>
+                        <span id="language_switcher" flag="off">
+                            <span class="language_button" id="language_button_1" onclick="switchLanguageBoard()">
+                                <span id="language_button_label_1">English</span> <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                            </span>
+                            <span class="language_button" id="language_button_2" onclick="switchLanguage('zh')">
+                                <span id="language_button_label_2"> 中文</span> <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                            </span>
+                            <span class="language_button" id="language_button_3" onclick="switchLanguage('jp')">
+                                <span id="language_button_label_3"> 日本語</span> 
+                            </span>
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div id="icons_tray_contact" class="tray">
+        </div>
+        <div id="tray_container" class="has_shadow">
+            <div id="icons_tray" class="tray">
+                <div class="icon" id="darkmode" onclick="switchDarkmode()">
+                    <abbr title="Dark mode">
+                        <i class="material-icons">
+                            dark_mode
+                        </i>
+                    </abbr>
+                </div>
                 <div class="icon" id="mail"><a href="mailto:xilong.yang@foxmail.com"> 
                     <abbr title="Mail">
                         <i class="material-icons">
@@ -54,52 +68,41 @@ onkeydown="dragMode(event)" onkeyup="clearDragMode(event)">
                         <i class="fa-brands fa-github fa-fw" aria-hidden="true"></i></a>
                     </abbr>
                 </div>
-            </div> 
-            <div id="icons_tray_tools" class="tray">
-                <div class="icon" id="darkmode" onclick="switchDarkmode()">
-                    <abbr title="Dark mode">
-                        <i class="material-icons">
-                            dark_mode
-                        </i>
-                    </abbr>
-                </div>
             </div>
         </div>
-        <div id="space"></div>
-        <div id="contents">
+        <div id="contents" class="has_shadow">
+            <div class="top"></div>
             <div id="works">
                 <div class="work">
                     <a href="https://github.com/XilongYang/STAMP">STAMP-C++</a>
-                    <p id="stamp_intro">Simple Two-Way Active Measure Protocol(IETF RFC8762).</p>
+                    <p id="stamp_intro">Simple Two-Way Active Measure Protocol (IETF RFC8762).</p>
                 </div>
                 <div class="work">
                     <a id="this_site" href="https://github.com/XilongYang/xilongyang.github.io">This site</a>
                     <p id="this_site_intro">A static site that simulates a OS.</p>
                 </div>
-                <div class="work" id="misc">
-                    <a href="https://github.com/XilongYang?tab=repositories" id="misc">misc.</a>
-                </div>
-                <div id="fades">
-                    <div id="about">
-                        <p class="non_important" id="about_label">About</p>
-                        <p id="intro">I'm a programer with 3 years of experience about C++ and Linux.  </p>
-                        <p id="intro_site">I maintain a <a href="https://github.com/XilongYang">github account</a> and <a href="/blog">blog</a>. </p>
-                        <p id="intro_email">You can contact me though email <a href="mailto:xilong.yang@foxmail.com">xilong.yang@foxmail.com</a>
-                    </div>
-                    <div id="link">
-                        <p class="non_important" id="links_label">Links</p>
-                        <a href="/zh/life">Xilong's Life</a><br>
-                        <a href="https://onedrive.xilong.site/">Xilong's Onedrive</a><br>
-                        <a href="/blog/">Xilong's Blog</a><br>
-                        <a href="/zh/blog">在泥坑里跳来跳去</a><br>
-                        <br>
-                        <p class="non_important" id="friend_label">Friends</p>
-                        <a href="https://doerr33.github.io">Doeer's Blog</a><br>
-                    </div>
-                    <div id="booter">
-                        <p class="non_important" id="nomore">* no more info.</p>
-                    </div>
-                </div>
+            </div>
+            <div class="work" id="misc">
+                <a href="https://github.com/XilongYang?tab=repositories" id="misc">misc.</a>
+            </div>
+            <div id="about">
+                <p class="non_important" id="about_label">About</p>
+                <p id="intro">I'm a programer with 3 years of experience about C++ and Linux.  </p>
+                <p id="intro_site">I maintain a <a href="https://github.com/XilongYang">github account</a> and <a href="/blog">blog</a>. </p>
+                <p id="intro_email">You can contact me though email <a href="mailto:xilong.yang@foxmail.com">xilong.yang@foxmail.com</a>
+            </div>
+            <div id="link">
+                <p class="non_important" id="links_label">Links</p>
+                <a href="/zh/life">Xilong's Life</a><br>
+                <a href="https://onedrive.xilong.site/">Xilong's Onedrive</a><br>
+                <a href="/blog/">Xilong's Blog</a><br>
+                <a href="/zh/blog">在泥坑里跳来跳去</a><br>
+                <br>
+                <p class="non_important" id="friend_label">Friends</p>
+                <a href="https://doerr33.github.io">Doeer's Blog</a><br>
+            </div>
+            <div id="booter">
+                <p class="non_important" id="nomore">* no more info.</p>
             </div>
         </div>
     </body>
