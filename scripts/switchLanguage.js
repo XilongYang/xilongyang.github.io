@@ -26,7 +26,11 @@ function switchLanguage(lang) {
         document.getElementById("name").innerHTML = "Xilong Yang";
         document.getElementById("occupation").innerHTML = "Programer";
         document.getElementById("language_label").innerHTML = "Language:";
+
         document.getElementById("stamp_intro").innerHTML = "Simple Two-Way Active Measure Protocol (IETF RFC8762).";
+        document.getElementById("little_crypt_intro").innerHTML = "A simple library which provides some useful encrypt/decrypt concerned operation.";
+        document.getElementById("littledb_intro").innerHTML = "A simple K-V database。";
+
         document.getElementById("this_site").innerHTML = "This site";
         document.getElementById("this_site_intro").innerHTML = "A static site that simulates a OS.";
         document.getElementById("misc").innerHTML = '<a href="https://github.com/XilongYang?tab=repositories">misc.</a>';
@@ -48,7 +52,11 @@ function switchLanguage(lang) {
         document.getElementById("name").innerHTML = "杨熙龙";
         document.getElementById("occupation").innerHTML = "程序员";
         document.getElementById("language_label").innerHTML = "语言:";
+
         document.getElementById("stamp_intro").innerHTML = "简单的双向主动测量协议 (IETF RFC8762)。";
+        document.getElementById("little_crypt_intro").innerHTML = "简单的加解密库。";
+        document.getElementById("littledb_intro").innerHTML = "简单的K-V数据库。";
+
         document.getElementById("this_site").innerHTML = "本站";
         document.getElementById("this_site_intro").innerHTML = "一个模拟成OS的静态网站。";
         document.getElementById("misc").innerHTML = '<a href="https://github.com/XilongYang?tab=repositories">更多</a>';
@@ -70,7 +78,11 @@ function switchLanguage(lang) {
         document.getElementById("name").innerHTML = "楊(ヤン) 熙龍(シロン)";
         document.getElementById("occupation").innerHTML = "プログラマー";
         document.getElementById("language_label").innerHTML = "言語:";
+
         document.getElementById("stamp_intro").innerHTML = "シンプルな双方向アクティブ測定プロトコル(IETF RFC8762)。";
+        document.getElementById("little_crypt_intro").innerHTML = "いくつかの有用な暗号化/復号化に関連する操作を提供する単純なライブラリ。";
+        document.getElementById("littledb_intro").innerHTML = "単純なK-Vデータベース。";
+
         document.getElementById("this_site").innerHTML = "このサイト";
         document.getElementById("this_site_intro").innerHTML = "OSをシミュレートする静的なWebサイト。";
         document.getElementById("misc").innerHTML = '<a href="https://github.com/XilongYang?tab=repositories">もっと</a>';
