@@ -28,7 +28,6 @@ function switchLanguage(lang) {
         document.getElementById("language_label").innerHTML = "Language:";
 
         document.getElementById("stamp_intro").innerHTML = "Simple Two-Way Active Measure Protocol (IETF RFC8762).";
-        document.getElementById("little_crypt_intro").innerHTML = "A simple library which provides some useful encrypt/decrypt concerned operation.";
         document.getElementById("littledb_intro").innerHTML = "A simple K-V database。";
 
         document.getElementById("this_site").innerHTML = "This site";
@@ -54,7 +53,6 @@ function switchLanguage(lang) {
         document.getElementById("language_label").innerHTML = "语言:";
 
         document.getElementById("stamp_intro").innerHTML = "简单的双向主动测量协议 (IETF RFC8762)。";
-        document.getElementById("little_crypt_intro").innerHTML = "简单的加解密库。";
         document.getElementById("littledb_intro").innerHTML = "简单的K-V数据库。";
 
         document.getElementById("this_site").innerHTML = "本站";
@@ -80,7 +78,6 @@ function switchLanguage(lang) {
         document.getElementById("language_label").innerHTML = "言語:";
 
         document.getElementById("stamp_intro").innerHTML = "シンプルな双方向アクティブ測定プロトコル(IETF RFC8762)。";
-        document.getElementById("little_crypt_intro").innerHTML = "いくつかの有用な暗号化/復号化に関連する操作を提供する単純なライブラリ。";
         document.getElementById("littledb_intro").innerHTML = "単純なK-Vデータベース。";
 
         document.getElementById("this_site").innerHTML = "このサイト";
