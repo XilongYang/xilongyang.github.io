@@ -28,7 +28,7 @@ function switchLanguage(lang) {
         document.getElementById("language_label").innerHTML = "Language:";
 
         document.getElementById("stamp_intro").innerHTML = "Simple Two-Way Active Measure Protocol (IETF RFC8762).";
-        document.getElementById("littledb_intro").innerHTML = "A simple K-V database。";
+        document.getElementById("little_crypt_intro").innerHTML = "A simple C++ library provides some encrypt/decrypt concerned interfaces and functions such as SHA, HMAC and AES.";
 
         document.getElementById("this_site").innerHTML = "This site";
         document.getElementById("this_site_intro").innerHTML = "A static site that simulates a OS.";
@@ -53,7 +53,7 @@ function switchLanguage(lang) {
         document.getElementById("language_label").innerHTML = "语言:";
 
         document.getElementById("stamp_intro").innerHTML = "简单的双向主动测量协议 (IETF RFC8762)。";
-        document.getElementById("littledb_intro").innerHTML = "简单的K-V数据库。";
+        document.getElementById("little_crypt_intro").innerHTML = "简单的 C++ 库，提供了一些与加密/解密相关的接口和函数，例如SHA、HMAC和AES。";
 
         document.getElementById("this_site").innerHTML = "本站";
         document.getElementById("this_site_intro").innerHTML = "一个模拟成OS的静态网站。";
@@ -78,7 +78,7 @@ function switchLanguage(lang) {
         document.getElementById("language_label").innerHTML = "言語:";
 
         document.getElementById("stamp_intro").innerHTML = "シンプルな双方向アクティブ測定プロトコル(IETF RFC8762)。";
-        document.getElementById("littledb_intro").innerHTML = "単純なK-Vデータベース。";
+        document.getElementById("little_crypt_intro").innerHTML = "単純なC++ライブラリは、SHA、HMAC、AESなどの暗号化/復号化に関連するインターフェイスと機能を提供します。";
 
         document.getElementById("this_site").innerHTML = "このサイト";
         document.getElementById("this_site_intro").innerHTML = "OSをシミュレートする静的なWebサイト。";
