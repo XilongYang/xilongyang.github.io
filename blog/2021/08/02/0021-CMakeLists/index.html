@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -16,17 +16,17 @@
     
 <link rel="stylesheet" href="/blog/css/style.css">
 
-    <link rel="shortcut icon" href="/blog/../../res/favicon.ico">
+    <link rel="shortcut icon" href="/blog/../res/favicon.ico">
     
 <link rel="stylesheet" href="/blog/css/font-awesome.min.css">
 
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
-    KEEP.hexo_config = {"hostname":"xilong.site","root":"/blog/","language":null,"path":"search.xml"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#D31919","avatar":"../../res/me.jpg","favicon":"../../res/favicon.ico","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":false,"background_img":null,"description":"To be or not to be, 这么着还是那么着。"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.hexo_config = {"hostname":"xilong.site","root":"/blog/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#D31919","avatar":"/../res/me.jpg","favicon":"/../res/favicon.ico","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":null,"description":"To be or not to be, 这么着还是那么着。"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.2.0"></head>
 
 
 <body>
@@ -49,7 +49,7 @@
     <div class="header-content">
         <div class="left">
             
-            <a class="logo-title" href="/">
+            <a class="logo-title" href="/blog/">
                 Xilong&#39;s Blog
             </a>
         </div>
@@ -84,7 +84,15 @@
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/blog/../../"
+                               href="/blog/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/blog/../"
                             >
                                 ABOUT
                             </a>
@@ -128,7 +136,12 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/blog/../../">ABOUT</a>
+                       href="/blog/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/blog/../">ABOUT</a>
                 </li>
             
         </ul>
@@ -155,9 +168,6 @@
 
         
             <div class="article-header">
-                <div class="avatar">
-                    <img src="/blog/../../res/me.jpg">
-                </div>
                 <div class="info">
                     <div class="author">
                         <span class="name">Xilong Yang</span>
@@ -176,7 +186,7 @@
             <ul>
                 
                     <li>
-                        <a href="/blog/categories/0x02-%E6%8A%80%E6%9C%AF%E6%9D%82%E8%AE%B0/">0x02 技术杂记</a>&nbsp;
+                        <a href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%AE%B0/">技术杂记</a>&nbsp;
                     </li>
                 
             </ul>
@@ -219,18 +229,17 @@
 <p>整理一下CMakeLists的相关知识。</p>
 </blockquote>
 <span id="more"></span>
-
-<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>听说CMake已经被证明图灵完备了，不过它的语法还是很简单的，由命令、变量和注释组成。</p>
+<h2 id="语法">语法</h2>
+<p>听说CMake已经被证明图灵完备了，不过它的语法还是很简单的，由命令、变量和注释组成。</p>
 <p>注释：以<code>#</code>开头的行即为注释。</p>
 <p>命令：包括命令名和一个括号括起来的参数列表。形式如下：</p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">command</span>(arg1 arg2 ...) <span class="comment"># 参数以空格分隔</span></span><br></pre></td></tr></table></figure>
-
 <p>变量：由命令生成或CMake环境定义，使用<code>$</code>和<code>&#123;&#125;</code>来引用变量：</p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$&#123;SOMEVAR&#125;</span> <span class="comment"># 变量的值</span></span><br><span class="line">SOMEVAR    <span class="comment"># 字面值</span></span><br></pre></td></tr></table></figure>
-
 <p>CMakeList.txt是逐行解析的，因此变量的定义应在使用之前。</p>
 <p>好了，现在你已经学会CMake了。了解几个常用命令和变量就可以使用了。</p>
-<h2 id="基础命令与变量"><a href="#基础命令与变量" class="headerlink" title="基础命令与变量"></a>基础命令与变量</h2><p><code>cmake_minimum_required(&lt;version&gt;)</code>：指定CMake的最小版本号。</p>
+<h2 id="基础命令与变量">基础命令与变量</h2>
+<p><code>cmake_minimum_required(&lt;version&gt;)</code>：指定CMake的最小版本号。</p>
 <p><code>project(&lt;name&gt;)</code>：指定工程名称。</p>
 <p><code>include_directories(&lt;dir1&gt; &lt;dir2&gt; ...)</code>：指定include目录。</p>
 <ul>
@@ -240,23 +249,21 @@
 <p><code>add_executable(&lt;target&gt; &lt;source1&gt; &lt;source2&gt; ...)</code>：构建可执行文件，第一个参数为文件名称，后面的参数为源文件列表。</p>
 <p>有了这几条命令，我们就可以编写一个能用的CMakeList.txt文件了：</p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cmake_minimun_required(<span class="number">3.1</span>)</span><br><span class="line"><span class="keyword">project</span>(HelloWorld)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/<span class="keyword">include</span>)</span><br><span class="line">aux_source_dirctory(<span class="variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/src DIR_SRC)</span><br><span class="line"><span class="keyword">add_executable</span>(helloworld <span class="variable">$&#123;DIR_SRC&#125;</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="控制流命令"><a href="#控制流命令" class="headerlink" title="控制流命令"></a>控制流命令</h2><ul>
+<h2 id="控制流命令">控制流命令</h2>
+<ul>
 <li>if</li>
 </ul>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(conditon)</span><br><span class="line">...</span><br><span class="line"><span class="keyword">elseif</span>(condition)</span><br><span class="line">...</span><br><span class="line"><span class="keyword">else</span>()</span><br><span class="line">...</span><br><span class="line"><span class="keyword">endif</span>()</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>while</li>
 </ul>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(condition)</span><br><span class="line">...</span><br><span class="line"><span class="keyword">endwhile</span>()</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>foreach</li>
 </ul>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span>(var arg1 arg2 ...)</span><br><span class="line">...</span><br><span class="line"><span class="keyword">endforeach</span>(var)</span><br></pre></td></tr></table></figure>
-
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><code>set(var value)</code>：为变量赋值。</p>
+<h2 id="常用命令">常用命令</h2>
+<p><code>set(var value)</code>：为变量赋值。</p>
 <p><code>add_definitions(-Dxxxx1 -Dxxxx2 ...)</code>：向编译器添加-D定义，此时代码内的<code>#ifdef xxxx ... #endif</code>代码块生效。</p>
 <p><code>add_dependencies(target-name depend-target1 ...)</code>：添加依赖目标。</p>
 <p><code>add_library(name [STATIC|SHARED] src1 src2...)</code>：创建库，如果未指定库类型则默认构建STATIC库，可以通过定义变量<code>BUILD_SHARED_LIBS</code>改为默认构建SHARED库。</p>
@@ -266,7 +273,8 @@
 <p><code>ebable_test()</code>：开启测试开关，没有这条指令则任何add_test指令都是无效的。</p>
 <p><code>find_library(var NAMES name1 name2 ... PATHS path1 path2 ...)</code>：在path中查找基础名称为name的库，并将其完整路径赋予变量var。</p>
 <p><code>file_path(var file path1 path2 ...)</code>：在path中查找file，并将path路径赋予变量var。</p>
-<h2 id="常用变量"><a href="#常用变量" class="headerlink" title="常用变量"></a>常用变量</h2><p><code>CMAKE_BINARY_DIR</code> = <code>PROJECT_BINARY_DIR</code> = <code>&lt;projectname&gt;_BINARY_DIR</code>：可执行文件生成目录。</p>
+<h2 id="常用变量">常用变量</h2>
+<p><code>CMAKE_BINARY_DIR</code> = <code>PROJECT_BINARY_DIR</code> = <code>&lt;projectname&gt;_BINARY_DIR</code>：可执行文件生成目录。</p>
 <p><code>CMAKE_SOURCE_DIR</code> = <code>PROJECT_SOURCE_DIR</code> = <code>&lt;projectname&gt;_SOURCE_DIR</code>：工程顶层目录。</p>
 <p><code>CMAKE_CURRENT_SOURCE_DIR</code>：当前文件（可以是子文件夹的CMakeLists.txt）所在目录。</p>
 <p><code>CMAKE_CURRENT_BINARY_DIR</code>：当前文件产生的可执行文件目录。</p>
@@ -288,19 +296,21 @@
 
         
             <div class="post-copyright-info">
-                <div class="article-copyright-info-container">
+                
+<div class="article-copyright-info-container">
     <ul>
         <li>Post title：CMakeLists.txt编写入门</li>
         <li>Post author：Xilong Yang</li>
         <li>Create time：2021-08-02 14:32:06</li>
         <li>
-            Post link：https://xilong.site/zh/blog/2021/08/02/0021-CMakeLists/
+            Post link：https://xilong.site/blog/2021/08/02/0021-CMakeLists/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
         </li>
     </ul>
 </div>
+
 
             </div>
         
@@ -373,10 +383,12 @@
             
             2022&nbsp;&nbsp;<a href="/">Xilong Yang</a>
         </div>
-        <span class="post-count">Total words: 69.4k</span>
-        <div class="theme-info info-item">
-            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        <div class="site-total-word-count">
+            Total Words:  213.4k |  
+            Total posts:  56
         </div>
+        
+        
         
         
     </div>
@@ -514,6 +526,10 @@
 <script src="/blog/js/local-search.js"></script>
 
 
+
+
+    
+<script src="/blog/js/code-copy.js"></script>
 
 
 

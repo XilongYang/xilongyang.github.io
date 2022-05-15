@@ -7,7 +7,7 @@ keep-mobile()
 }
 .article-content-container .article-header {
   position: relative;
-  padding-left: 46px;
+  padding-left: none;
   width: 100%;
   height: 46px;
   box-sizing: border-box;
@@ -31,7 +31,6 @@ keep-mobile()
 }
 .article-content-container .article-header .info {
   padding: 2px 0;
-  margin-left: 10px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
