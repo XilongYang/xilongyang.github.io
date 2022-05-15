@@ -46,7 +46,8 @@ function appGenerate() {
         admin: ['XilongYang'],
         id: "xilong_site",      // Ensure uniqueness and length less than 50
         distractionFreeMode: false  // Facebook-like distraction free mode
-    })
+    });
+    gitalk_generator.render('gitalk');
 
     new Application("music", "Music Player"
     , '<iframe class="fake_window_contents" id="music-content" loading="lazy" src="/components/musicplayer/" frameborder="0"></iframe>'
@@ -68,7 +69,6 @@ function appGenerate() {
     , '<iframe class="fake_window_contents non_dark" id="blog_zh-content" loading="lazy" src="/blog/" frameborder="0"></iframe>'
     , "<i class='material-icons non_dark'>podcasts</i>", "icons_tray");
 
-    gitalk_generator.render('gitalk');
     if (screen.availWidth < 950) {
         document.getElementById("body").mobile = "true";
         var apps = document.getElementsByClassName("fake_window");

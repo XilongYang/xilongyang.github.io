@@ -13,9 +13,9 @@
         <link href="/res/MaterialIcons/twotone.css" rel="stylesheet">
         <link href="/res/fontawesome-free-6.0.0-web/css/all.min.css" rel="stylesheet">
         <link href='https://fonts.loli.net/css?family=Poiret+One' rel='stylesheet'>
-        <link href='https://fonts.loli.net/css?family=Black+Ops+One' rel='stylesheet'>
-        <link href='https://fonts.loli.net/css?family=Rubik+Glitch' rel='stylesheet'>
         <link href="default.css" rel="stylesheet">
+
+        <script src="/scripts/changeApp.js"></script>
     </head>
     <body>
         <div class="page_container">
@@ -35,14 +35,48 @@
             </div>
 
             <div id="page2" class="pages">
-                <div class="page_title">
-                    Works
+                <div id="works">
+                    <div class="page_title">
+                        Works
+                    </div>
+                    <div class="page_contents">
+                        <a href="https://github.com/XilongYang/STAMP">STAMP-C++</a>
+                        <p>Simple Two-Way Active Measure Protocol (IETF RFC8762).</p>
+                        <a href="https://github.com/XilongYang/littledb">LittleDB </a>
+                        <p>A simple C++ library provides an embedded K-V database and some encrypt/decrypt concerned functions.</p>
+                    </div>
+                    <div class="page_contents" id="misc">
+                        <a href="https://github.com/XilongYang?tab=repositories">misc.</a>
+                    </div>
                 </div>
-                <div class="page_contents">
-                    <a href="https://github.com/XilongYang/STAMP">STAMP-C++</a>
-                    <p>Simple Two-Way Active Measure Protocol (IETF RFC8762).</p>
-                    <a href="https://github.com/XilongYang/littledb">LittleDB </a>
-                    <p>A simple C++ library provides an embedded K-V database and some encrypt/decrypt concerned functions.</p>
+                <div id="toys">
+                    <div class="page_title">
+                        Toys
+                    </div>
+                    <div class="page_contents" id="toys_area_border">
+                        <iframe id="toys_area">
+                        </iframe>
+                    </div>
+                    <div class="page_contents" id="toys_tray">
+                        <div class="icons" id="power_off" onclick="PowerOff('power_off','toys_area')">
+                            <span class="material-icons">
+                                power_settings_new
+                            </span>
+                        </div>
+                        <div class="icons apps" id="fe3os" onclick="ChangeApps('/components/Fe3OS', 'fe3os', 'toys_area')">
+                            <span class="material-icons">
+                                terminal
+                            </span>
+                        </div>
+                        <div class="icons apps" id="music_player" onclick="ChangeApps('/components/musicplayer', 'music_player', 'toys_area')">
+                            <span class="material-icons">
+                                album
+                            </span>
+                        </div>
+                    </div>
+                    <div class="page_contents">
+                        There are some toys. To play with these toys you need to turn on the power first. Toys can be selected by tapping the app icon when the screen is on.
+                    </div>
                 </div>
             </div> 
 
@@ -55,22 +89,21 @@
                     <p id="intro_site">I maintain a <a href="https://github.com/XilongYang">github account</a> and <a href="/blog">blog</a>. </p>
                     <p id="intro_email">You can contact me though <a href="mailto:xilong.yang@foxmail.com">xilong.yang@foxmail.com</a>
                 </div>
-            </div>  
-
-            <div id="page4" class="pages">
                 <div class="page_title">
                     Links
                 </div>
                 <div class="page_contents">
-                    <a href="https://onedrive.xilong.site/">Xilong's Onedrive</a><br>
-                    <a href="/life/">Xilong's Life</a><br>
+                    <a href="/components/musicplayer/">Music Player</a>, 
+                    <a href="/components/Fe3OS/">Fe3OS</a>, 
+                    <a href="https://onedrive.xilong.site/">Xilong's Onedrive</a>, 
+                    <a href="/life/">Xilong's Life</a>, 
                     <a href="/blog/">Xilong's Blog</a><br>
                 </div>
                 <div class="page_title">
                     Friends
                 </div>
                 <div class="page_contents">
-                    <a href="https://doerr33.github.io">Doeer's Blog</a><br>
+                    <a href="https://doerr33.github.io">Doeer's Blog</a>, 
                     <a href="https://jingsong.site">Jingsong Xu</a><br>
                 </div>
             </div>

@@ -9,7 +9,6 @@ body{
 
 a {
     color: #c00;
-    font-weight: bold;
     text-decoration: none;
 }
 
@@ -57,7 +56,7 @@ a:hover {
     position: relative;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
     scroll-snap-align: start;
     background-attachment: fixed;
 }
@@ -80,13 +79,17 @@ a:hover {
 
 .page_title {
     font-size: 30px;
-    margin: 5%;
+    font-weight: bold;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 .page_contents {
-
-    margin: 5%;
     max-width: 18cm;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 #down_arrow{
@@ -148,6 +151,55 @@ a:hover {
     color: #999;
 }
 
+#works {
+    float: left;
+    width: 50%;
+}
+
+#misc {
+    margin-top: 60px;
+}
+
+#toys {
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+#toys_area_border {
+    width: 88%;
+    height: 60%;
+    border-top: 2px solid #c00;
+    border-top-style: dashed;
+    border-bottom: 2px solid #c00;
+    border-bottom-style: dashed;
+}
+
+#toys_area {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+#toys_tray {
+    margin-bottom: 15px;
+    width: 88%;
+    border-bottom: 2px solid #c00;
+    border-bottom-style: dashed;
+    line-height: 50%;
+}
+
+.icons {
+    display: inline-block;
+    vertical-align: bottom;
+    cursor: pointer;
+    color: #333;
+}
+
+.icons:hover {
+    color: #c00;
+}
+
 @media screen and (max-width: 950px) {
     .pages {
         height: auto;
@@ -186,6 +238,18 @@ a:hover {
         text-align: left;
         font-size: 16px;
         padding-left: 2px;
+    }
+
+    #works {
+        width: auto;
+    }
+
+    #misc {
+        margin-top: auto;
+    }
+
+    #toys {
+        display: none;
     }
 
     .page_container {
