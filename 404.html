@@ -7,122 +7,70 @@
     <link rel="icon" href="/res/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="/res/favicon.ico" type="image/x-icon">
     <link rel="stylesheet"b href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
-    <link href='https://fonts.loli.net/css?family=Allerta+Stencil' rel='stylesheet'>
+        <link href='https://fonts.loli.net/css?family=Poiret+One' rel='stylesheet'>
     <style type="text/css">
         body {
-            font-family:"Allerta Stencil",Helvetica,sans-serif;
-            margin-top: 5%;
+            font-size: 20px;
+            width: 100%;
+            height: 100vh;
+            margin: auto;
+            min-width: 260;
         }
 
         a { 
-            color: #000000;
+            color: #c00;
+            text-decoration: none;
             font-weight: bold;
-            font-style: italic;
-            text-decoration: underline dotted #aaa;
-            transition-duration: 1s;
         }
-        a:visited { color: #000000}
         a:hover { 
-            color: #078a07;
+            color: #c88;
             text-decoration: none;
         }
 
         #container {
-            display: grid;
-            grid: 'A B'
-                  'C D';
-            margin: auto;
-            width: 800px;
+            position: fixed;
+            right: 6%;
+            bottom: 10%;
+            text-align: right;
+        }
+
+        #header {
+            font-family:"Poiret One",Helvetica,sans-serif;
+            font-size: 100px;
         }
 
         #t404 {
-            grid-area: A;
-            vertical-align: middle;
-            font-size: 150px;
-            margin-top: 30px;
-            margin-bottom: 0%;
-        }
-
-        #not {
-            grid-area: B;
-            font-size: 150px;
-            vertical-align: middle;
-            margin-top: 30px;
-            margin-bottom: 0%;
-        }
-
-        #found {
-            grid-area: D;
-            font-size: 150px;
-            vertical-align: middle;
-            margin-top: 0%;
+            color: #c44;
         }
 
         #contents {
-            grid-area: C;
-            margin-top: 16px;
-        }
-
-        .non_important{
-            color: #777;
+            font-size: 21px;
         }
 
         @media screen and (max-width: 950px) {
-            body{
-                margin-left: 2.5%;
-                margin-right: 2.5%;
-                text-align: left; 
-            }
             #container {
-                display: grid;
-                grid: 'A' 
-                      'B'
-                      'C' 
-                      'D';
-            }
-
-            #t404 {
-                grid-area: A;
-                margin-top: 10px;
-                margin-bottom: 0%;
-                margin-right: 0%;
-            }
-
-            #not {
-                grid-area: B;
-                margin-top: 0%;
-                margin-bottom: 0%;
-            }
-
-            #found {
-                grid-area: C;
-                margin-top: 0%;
-                margin-bottom: 0%;
-            }
-
-            #contents {
-                grid-area: D;
-                margin-top: 0%;
-                margin-bottom: 0%;
+                left: 10px;
+                top: 10px;
+                text-align: left;
             }
         }
     </style>
 </head>
 <body>
     <div id="container">
-        <h1 id="t404">
-            404
-        </h1>
-        <div id="not">
-            Not <i class="fa fa-chain-broken non_important" aria-hidden="true"></i>
-        </div>
-        <div id="found">
-            Found
+        <div id="header">
+            <span id="t404">
+                404
+            </span>
+            <span id="not_found">
+                Not Found
+            </span>
         </div>
         <div id="contents">
-            <p class="non_important">That page seems to be missing. Maybe you can:</p>
-            <p><a href="./index.html">Back home.</a></p>
-            <p><a href="mailto:xilong.yang@foxmail.com">Contact me: xilong.yang@foxmail.com.</a></p>
+            <span>That page seems to be missing. Maybe you can <a href="./index.html">Back home</a> </span><br>
+            <span>or contact me through
+                <a href="mailto:xilong.yang@foxmail.com">xilong.yang@foxmail.com</a>.
+            </span>
         </div>
     </div>
 </body>
