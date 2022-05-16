@@ -1943,6 +1943,8 @@ pre .javascript .function {
   animation: icon-animate 1.2s ease-in-out infinite;
 }
 .paginator {
+  display: flex;
+  justify-content: space-between;
   font-size: 1rem;
   margin-top: 30px;
 }
@@ -1951,6 +1953,31 @@ pre .javascript .function {
 }
 .paginator a.next {
   float: right;
+}
+.page_numbers {
+  font-size: 1rem;
+  text-align: center;
+}
+.page-number {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 5px;
+  padding: 8px 16px;
+  background: var(--background-color);
+  box-shadow: 2px 2px 5px var(--shadow-color);
+  transition-property: color, background, box-shadow, border-color, transform;
+  transition-delay: 0s, 0s, 0s, 0s, 0s;
+  transition-duration: 0.2s, 0.2s, 0.2s, 0.2s, 0.2s;
+  transition-timing-function: ease, ease, ease, ease, linear;
+}
+.page-number.current {
+  font-weight: bolder;
+  color: var(--primary-color);
 }
 .page-template-container {
   padding: 30px;

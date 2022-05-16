@@ -2,9 +2,9 @@ function NextPage() {
     var page_container = document.getElementById("page_container");
     var pages = document.getElementsByClassName("pages");
 
-    var curY = page_container.scrollTop;
+    var curY = Math.round(page_container.scrollTop);
 
-    var targetY = 0;
+    var targetY;
     for (var i = 0; i < pages.length; ++i) {
         var pageY = pages[i].offsetTop;
         if (pageY > curY) {
@@ -13,11 +13,13 @@ function NextPage() {
         }
     }
 
-    page_container.scroll({
-        top: targetY,
-        left: 0,
-        behavior: 'smooth'
-    });
+    if (targetY != null) {
+        page_container.scroll({
+            top: targetY,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
 }
 
 function PrevPage() {
@@ -26,20 +28,22 @@ function PrevPage() {
 
     var curY = page_container.scrollTop;
 
-    var targetY = 0;
+    var targetY;
     for (var i = pages.length - 1; i >= 0; --i) {
         var pageY = pages[i].offsetTop;
-        if (pageY <= curY) {
+        if (pageY < curY) {
             targetY = pageY;
             break;
         }
     }
 
-    page_container.scroll({
-        top: targetY,
-        left: 0,
-        behavior: 'smooth'
-    });
+    if (targetY != null) {
+        page_container.scroll({
+            top: targetY,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
 }
 
 var scroll_timer;
@@ -69,11 +73,9 @@ function QuickScrollListener(e) {
 
 function ChangePage(e) {
     if (e.code == "ArrowUp" || e.code == "PageUp") {
-        console.log("Up");
         PrevPage();
     }
     if (e.code == "ArrowDown" || e.code == "PageDown") {
-        console.log("Down");
         NextPage();
     }
 }

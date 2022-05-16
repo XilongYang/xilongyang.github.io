@@ -2754,78 +2754,6 @@
       </tags>
   </entry>
   <entry>
-    <title>字符串匹配之KMP</title>
-    <url>/blog/2021/11/01/0030-string_matching_KMP/</url>
-    <content><![CDATA[<blockquote>
-<p>字符串匹配算法半壁江山之KMP算法。</p>
-</blockquote>
-<span id="more"></span>
-<h2 id="kmp算法介绍">KMP算法介绍</h2>
-<p>KMP算法是一种利用模式串中的信息来尽可能减少与待匹配串的匹配次数从而大副提高效率的算法。它的核心是一个<code>next</code>表，用以记录一次匹配失败后，下次匹配开始的位置。</p>
-<h2 id="kmp匹配过程">KMP匹配过程</h2>
-<p>如何生成<code>next</code>表是KMP的核心内容，但在此之前，不妨先看看KMP算法是如何工作的。</p>
-<p>设模式串为"ABAABAC"，待匹配串为"ABABAABAABAC"。根据模式串生成的<code>next</code>表为：{0, 0, 1, 1, 2, 3, 0}。之后会介绍如何生成<code>next</code>表。这里先解释这个表的意义，<code>next[n] = k</code>意为<strong>在模式串前n位构成的子串中，其最长相等严格前后缀的长度为k。</strong></p>
-<p>解释一下黑体字就是说，对于模式串“ABAABAC”而言，其前6位构成的子串是"ABAABA"。所谓的严格前/后缀就是指除了串本身的前/后缀：<code>&#123;前/后缀&#125; - &#123;串本身&#125;</code>。相等严格前后缀是指既是串的严格前缀也是串的严格后缀的子串，对于"ABAABA"而言，其相等严格前后缀有："A"、"ABA"两个。最长相等严格前后缀显然就是"ABA"。</p>
-<p>上面这段话就可以表示为<code>next[6] = 3</code>。</p>
-<p>从位置0开始匹配，结果如下：</p>
-<figure>
-<img src="https://img.xilong.site/20211101/image-20211101183430703.png" alt="" /><figcaption>image-20211101183430703</figcaption>
-</figure>
-<p>成功匹配的位数是3，查询匹配表项<code>next[3] = 1</code>。也就是已匹配部分的末位与首位相等，因此可以直接将首位移到末位位置开始下一轮匹配：</p>
-<figure>
-<img src="https://img.xilong.site/20211101/image-20211101191242087.png" alt="" /><figcaption>image-20211101191242087</figcaption>
-</figure>
-<p>成功匹配的位数是6，注意匹配并不是从位置2开始的，而是从位置3——上次匹配失败的位置开始，查询匹配表项<code>next[6] = 3</code>。说明已匹配部分前3位与后3位相等，将前3位移到后3位的位置开始下一轮匹配：</p>
-<figure>
-<img src="https://img.xilong.site/20211101/image-20211101190744058.png" alt="" /><figcaption>image-20211101190744058</figcaption>
-</figure>
-<p>匹配成功。</p>
-<p>注意到，所谓移动其实就是从模式串的下标<code>next[匹配成功位数]</code>开始，从失败位置继续匹配。</p>
-<p>代码表示：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// str:待匹配串, pattern:模式串, next[pattern.size()]:失配表</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">kmp</span><span class="params">(<span class="type">const</span> string&amp; str, <span class="type">const</span> string&amp; pattern)</span> </span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; str.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">        <span class="comment">// j与i匹配失败而j不为0时，说明有j - 1位匹配成功。</span></span><br><span class="line">        <span class="comment">// 尝试使用pattern[next[j - 1]]从失败位置继续匹配，直到</span></span><br><span class="line">        <span class="comment">//    1. j == 0</span></span><br><span class="line">        <span class="comment">//    2. 匹配成功</span></span><br><span class="line">        <span class="keyword">while</span> (j &gt; <span class="number">0</span> &amp;&amp; pattern[j] != str[i]) &#123;</span><br><span class="line">            j = next[j - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 匹配成功则成功位数+1</span></span><br><span class="line">        <span class="keyword">if</span> (pattern[j] == str[i]) &#123;</span><br><span class="line">            ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 若匹配成功位数等于模式串大小，说明模式匹配成功，记录下这个位置。</span></span><br><span class="line">        <span class="keyword">if</span> (j == pattern.<span class="built_in">size</span>()) &#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(i - pattern.<span class="built_in">size</span>() + <span class="number">1</span>);</span><br><span class="line">            j = next[j - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="next表生成">next表生成</h2>
-<p>next表的生成方法可以理解成使用模式串去匹配自身。数学证明太过复杂按下不表，先上代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">next</span><span class="params">(<span class="type">const</span> string &amp;str)</span> </span>&#123;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">result</span><span class="params">(str.length(), <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="type">int</span> k = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; result.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">        <span class="comment">// k &gt; 0且匹配失败说明之前存在k - 1位的匹配成功。</span></span><br><span class="line">        <span class="comment">// 尝试使用str[result[k - 1]]与str[i]继续匹配</span></span><br><span class="line">        <span class="keyword">while</span> (k &gt; <span class="number">0</span> &amp;&amp; str[k] != str[i]) &#123;</span><br><span class="line">            k = result[k - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果匹配成功，则说明str前i位这个子串的后k位与前k位相同</span></span><br><span class="line">        <span class="comment">// 即result[i] = k;</span></span><br><span class="line">        <span class="keyword">if</span> (str[k] == str[i]) &#123;</span><br><span class="line">            ++k;</span><br><span class="line">        &#125;</span><br><span class="line">        result[i] = k;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以看出与kmp匹配过程的代码非常相似，图解如下：</p>
-<p>例P="ABCDABA"</p>
-<figure>
-<img src="https://img.xilong.site/20211101/image-20211101211913745.png" alt="" /><figcaption>image-20211101211913745</figcaption>
-</figure>
-<p>因为严格前/后缀不能等于自身，因此从第2位开始匹配，并将第一位结果置0。可见匹配失败，且<code>k=0</code>，将此位结果置0，进入下一位。</p>
-<figure>
-<img src="https://img.xilong.site/20211101/image-20211101212012168.png" alt="" /><figcaption>image-20211101212012168</figcaption>
-</figure>
-<p>依然不匹配，且<code>k=0</code>，置0进入下一位。</p>
-<figure>
-<img src="https://img.xilong.site/20211101/image-20211101212117026.png" alt="" /><figcaption>image-20211101212117026</figcaption>
-</figure>
-<p>还是不匹配，且<code>k=0</code>，置0进入下一位。</p>
-<figure>
-<img src="https://img.xilong.site/20211101/image-20211101212427058.png" alt="" /><figcaption>image-20211101212427058</figcaption>
-</figure>
-<p>匹配，<code>++k</code>，并置<code>结果=k=1</code>。由于下一步比较时<code>k=1</code>增量与比较步长相同，看起来好像没有移动。</p>
-<figure>
-<img src="https://img.xilong.site/20211101/image-20211101212506554.png" alt="" /><figcaption>image-20211101212506554</figcaption>
-</figure>
-<p>匹配，<code>++k</code>，并置<code>结果=k=2</code>。进入下一步。</p>
-<figure>
-<img src="https://img.xilong.site/20211101/image-20211101212649204.png" alt="" /><figcaption>image-20211101212649204</figcaption>
-</figure>
-<p>不匹配，且<code>k &gt; 0</code>试图取<code>next[k - 1] = next[1] = 0</code>与该位比较。</p>
-<figure>
-<img src="https://img.xilong.site/20211101/image-20211101212832132.png" alt="" /><figcaption>image-20211101212832132</figcaption>
-</figure>
-<p>匹配，且<code>k=0</code>，<code>++k</code>置<code>结果=k=1</code>。结束匹配过程。</p>
-<p>最终结果<code>next=&#123;0,0,0,0,1,2,1&#125;</code>。</p>
-]]></content>
-      <categories>
-        <category>数据结构和算法</category>
-      </categories>
-      <tags>
-        <tag>字符串</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>字符串匹配之AC自动机</title>
     <url>/blog/2021/11/02/0031-string_matching_automaton/</url>
     <content><![CDATA[<blockquote>
@@ -2899,83 +2827,75 @@
       </tags>
   </entry>
   <entry>
-    <title>Haskell：理解惰性求值与运算符优先级</title>
-    <url>/blog/2022/01/08/0033-Haskell:operator_and_lazy/</url>
+    <title>字符串匹配之KMP</title>
+    <url>/blog/2021/11/01/0030-string_matching_KMP/</url>
     <content><![CDATA[<blockquote>
-<p>做 <a class="link"   href="https://www.seas.upenn.edu/~cis194/spring13/hw/06-laziness.pdf" >CIS 194 HomeWork6<i class="fas fa-external-link-alt"></i></a>时遇到了各种思维方面的困难。试图通过梳理它们加深对运算符优先级和惰性求值的理解。</p>
+<p>字符串匹配算法半壁江山之KMP算法。</p>
 </blockquote>
 <span id="more"></span>
-<h2 id="引言fibonacci数列">引言：Fibonacci数列</h2>
-<p>斐波那契数列，相信大家都很熟悉了，每个人刚接触递归与动态规划的思想时候都会看到它的身影。其定义为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fib(1) = 1</span><br><span class="line">fib(2) = 1</span><br><span class="line">fib(n) = fib(n - 1) + fib(n - 2), n &gt; 2</span><br></pre></td></tr></table></figure>
-<p>这在Haskell中是很容易实现的：</p>
-<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">fib</span> :: <span class="type">Integer</span> -&gt; <span class="type">Integer</span></span><br><span class="line"><span class="title">fib</span> <span class="number">1</span> = <span class="number">1</span></span><br><span class="line"><span class="title">fib</span> <span class="number">2</span> = <span class="number">1</span></span><br><span class="line"><span class="title">fib</span> n = fib (n - <span class="number">1</span>) + fib (n - <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="fib函数的递推实现">fib函数的递推实现</h2>
-<p>不难看出，上面的实现非常自然，几乎与数学方式给出的定义一样。然而大家可能都知道，这种定义方式的计算效率是很低的，在过程式语言中可以引出DP思想：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">fib</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="type">int</span> fibs[n] = &#123;<span class="number">1</span>,<span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        fibs[i] = fibs[i - <span class="number">1</span>] + fibs[i - <span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fibs[n - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样的计算方法将可能重复使用的资源记录了下来，使用少量空间换取了大量的时间。并且也很符合人的直觉。可以拆解成两步：</p>
-<ol type="1">
-<li>维护一个长度至少为n的数列。</li>
-<li>取出数列中对应的元素。</li>
-</ol>
-<p>那么在Haskell这样的无副作用语言中如何实现对列表的维护呢？如果使用下面方式：</p>
-<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">fibs</span> :: [<span class="type">Integer</span>]</span><br><span class="line"><span class="title">fibs</span> = map fib [<span class="number">1</span>..]</span><br></pre></td></tr></table></figure>
-<p>则不仅无法使用这个列表记录已使用的计算，反而每一步都要耗费大量的计算资源。这里如果根据直觉实现递推，或许会实现出这样的东西：</p>
-<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">fibs</span> :: [<span class="type">Integer</span>]</span><br><span class="line"><span class="title">fibs</span> = map fib&#x27; [<span class="number">1</span>..]</span><br><span class="line">	<span class="keyword">where</span></span><br><span class="line">		fib&#x27; <span class="number">1</span> = <span class="number">1</span></span><br><span class="line">		fib&#x27; <span class="number">2</span> = <span class="number">1</span></span><br><span class="line">		fib&#x27; n = fibs!!(n - <span class="number">1</span>) + fibs!!(n - <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-<p>然而，这样会寻致计算<code>!!</code>的时候试图求出<code>fib</code>的值，因此会进入一个死循环。不可行。</p>
-<p>那么我们在<a class="link"   href="https://www.seas.upenn.edu/~cis194/spring13/lectures/06-laziness.html" >Lecture 6<i class="fas fa-external-link-alt"></i></a>中见过的<code>Data.Array</code>可以完成这个任务吗？答案是不行，它仅仅是一个对列表的封装，本身不支持处理无限列表。且此处并不需要使用映射。</p>
-<p>黔驴技穷了，上网搜索解法，发现可以使用<code>zipWith</code>实现如下：</p>
-<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">fibs</span> :: [<span class="type">Integer</span>]</span><br><span class="line"><span class="title">fibs</span> = <span class="number">1</span>:<span class="number">1</span>:zipWith (+) fibs (tail fibs)</span><br></pre></td></tr></table></figure>
-<p>于是开始了我的迷惑之旅。</p>
-<h2 id="惰性求值">惰性求值</h2>
-<p>对于<code>fibs = 1:1:zipWith (+) fibs (tail fibs)</code>这种形式的定义，我简直闻所未闻。定义中不仅出现了自身，甚至出现了对自身的嵌套运算。将上式转换为C++形式可以帮助我们快速发现蹊跷：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1:1:zipWith (+) fibs (tail fibs) == (:) (1) ((:) (1) (zipWith (+) fibs (tail fibs)))</span></span><br><span class="line"><span class="function">list <span class="title">cons</span><span class="params">(Num i, list tail)</span></span>;</span><br><span class="line"><span class="function">list <span class="title">zipWith</span><span class="params">(operation op, list a, list b)</span></span>;</span><br><span class="line"><span class="function">list <span class="title">tail</span><span class="params">(list l)</span></span>;</span><br><span class="line"><span class="function">list <span class="title">fibs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">cons</span>(<span class="number">1</span>, <span class="built_in">cons</span>(<span class="number">1</span>, <span class="built_in">zipWith</span>(plus, <span class="built_in">fibs</span>(), <span class="built_in">tail</span>(<span class="built_in">fibs</span>()))));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以发现一个很明显的问题，这个函数没有递归终止条件。而在C++这样的直接求值语言中，这会导致传参时无限递归，计算不出任何结果。然而对于惰性求值的Haskell而言，就不存在这个问题了，首先看看<code>zipWith</code>的定义：</p>
-<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">zipWith</span> :: (a-&gt;b-&gt;c) -&gt; [a] -&gt; [b] -&gt; [c]</span><br><span class="line"><span class="title">zipWith</span> f = go</span><br><span class="line">  <span class="keyword">where</span></span><br><span class="line">    go [] _ = []</span><br><span class="line">    go _ [] = []</span><br><span class="line">    go (x:xs) (y:ys) = f x y : go xs ys</span><br></pre></td></tr></table></figure>
-<p>由于这个函数没有用到如<code>!!</code>或<code>length</code>这类需要先将值计算出来的函数，符合惰性求值的作用条件，计算过程如下：</p>
-<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">fibs</span> = <span class="number">1</span>:<span class="number">1</span>:zipWith (+) fibs (tail fibs)</span><br><span class="line"> == <span class="number">1</span>:<span class="number">1</span>:(go (<span class="number">1</span>: (<span class="number">1</span>:ys))</span><br><span class="line"> == <span class="number">1</span>:<span class="number">1</span>:((<span class="number">1</span> + <span class="number">1</span>) : xs : ys)</span><br><span class="line"> == <span class="number">1</span>:<span class="number">1</span>:((<span class="number">1</span> + <span class="number">1</span>) : tail fibs : tail (tail fibs))</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
-<p>可以总结出一条规律，要想使用惰性求值特性，就要使每一个计算步骤都不依赖完整的结果。</p>
-<h2 id="谈谈运算符优先级">谈谈运算符优先级</h2>
-<ul>
-<li>Why not <code>fib = 1:1:(zipWith (+) fibs (tail fibs))</code></li>
-</ul>
-<p>这里的答案是<code>:</code>运算符是<code>cons</code>函数的语法糖，而<code>[emelments]</code>又是<code>:</code>的语法糖，关系如下：</p>
-<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] == <span class="number">1</span>:<span class="number">2</span>:<span class="number">3</span>:[] == cons <span class="number">1</span> (cons <span class="number">2</span> (cons <span class="number">3</span> []))</span><br></pre></td></tr></table></figure>
-<p>不难看出，为满足这个关系，<code>:</code>是一个右结合运算符。因此：</p>
-<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>:<span class="number">1</span>:(zipWith (+) fibs (tail fibs))</span><br><span class="line">== <span class="number">1</span>:(<span class="number">1</span>:((zipWith (+) fibs (tail fibs))))</span><br><span class="line">== <span class="number">1</span>:(<span class="number">1</span>:(zipWith (+) fibs (tail fibs)))</span><br><span class="line">== <span class="number">1</span>:<span class="number">1</span>:zipWith (+) fibs (tail fibs)</span><br></pre></td></tr></table></figure>
-<p>之所以可以将<code>zipWith (+) fibs (tail fibs)</code>看做一个整体，是因为前缀函数调用的优先级高于中缀函数。</p>
-<p>而不可以将<code>zipWith (+) fibs (tail fibs)</code>写做<code>zipWith (+) fibs tail fibs</code>，则是因为前缀函数调用优先级相同，且从左向右开始分析。因此上式等价于：<code>(zipWith (+) fibs tail) fibs</code>。</p>
-<ul>
-<li>Why not <code>fib = 1:1:zipWith (+) fibs $ tail fibs</code></li>
-</ul>
-<p>根据<code>$</code>运算符的作用是“<em>省略之后的括号</em>”来理解，这样写是可行的，然而这个理解是错误的。<code>$</code>运算符真正的作用是，将<strong>前后两部分都括上括号</strong>。因此上式转换为前缀写法后，错误就显而易见了，如下：</p>
-<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">($) (<span class="number">1</span>:<span class="number">1</span>:zipWith (+) fibs) (tail fibs)</span><br><span class="line">($) (cons <span class="number">1</span> (cons <span class="number">1</span> (zipWith (+) fibs))) (tail fibs)</span><br></pre></td></tr></table></figure>
-<p>值得一提的是<code>$</code>的函数原型：</p>
-<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">($) :: (a -&gt; b) -&gt; a -&gt; b</span><br><span class="line">($) = id</span><br></pre></td></tr></table></figure>
-<p>即接受一个函数，然后返回该函数本身。唯一的作用就是用其极低的运算优先级来省略多余的括号。没错，是极低的优先级，这有违直觉。因为直觉上似乎是：<em>“<code>$</code>运算符以极高的运算优先级为它的左右两边加上了括号”</em>。然而我们不妨思考一下，括号的意义正是优先运算，为了让自己的左右都先于自己运算，它的优先级必然很低。（事实上<code>$</code>的运算优先级是最低的一级，参见后附优先级表。）</p>
-<p>考虑以下例子：</p>
-<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">f</span> :: a -&gt; b</span><br><span class="line"><span class="title">g</span> :: c -&gt; a</span><br><span class="line"></span><br><span class="line"><span class="title">f</span> g x == (f g) x</span><br><span class="line"><span class="title">f</span> $ g x /= ((f $) g) x</span><br><span class="line"><span class="title">map</span> + [<span class="number">1</span>] /= map (+) [<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-<p>为什么同样是占据高优先级函数的参数位置，中缀运算符不会被当作参数传递呢？因为当我们使用中缀函数时，实际上表达式会被当作等价的前缀形式来处理，即：</p>
-<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">f</span> $ g x == ($) (f) (g x) == ($ f) (g x) == f (g x) <span class="comment">-- 注意：当转换为前缀形式后，由于所有的函数都成为了前缀函数，不再有优先级一说。</span></span><br><span class="line"><span class="title">map</span> + [<span class="number">1</span>] == (+) (map) ([<span class="number">1</span>]) == (+ map) ([<span class="number">1</span>]) <span class="comment">-- 错误：函数(+ map)参数类型与[]不匹配。</span></span><br></pre></td></tr></table></figure>
-<p>上例也可看出，所谓的优先级只在中缀表达式到前缀表达式的转换中有效，即：</p>
-<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">(f.g) x == ((.) f g) (x)</span><br><span class="line"><span class="title">f</span>.g $ x == ($) (f.g) (x) == ($) ((.) f g) (x)</span><br><span class="line"><span class="number">1</span> + <span class="number">2</span> * <span class="number">3</span> + <span class="number">4</span> </span><br><span class="line">  == (+) (<span class="number">1</span> + <span class="number">2</span> * <span class="number">3</span>) + (<span class="number">4</span>) </span><br><span class="line">  == (+) ((+) (<span class="number">1</span>) (<span class="number">2</span> * <span class="number">3</span>)) (<span class="number">4</span>) </span><br><span class="line">  == (+) ((+) (<span class="number">1</span>) ((*) <span class="number">2</span> <span class="number">3</span>)) <span class="number">4</span></span><br></pre></td></tr></table></figure>
-<p>这里又可看出一个有趣的规律：优先级不同的运算符先转换较低级的，同级的运算符则根据结合律来决定顺序（转换顺序与结合顺序相反）。即后运算的先转换。</p>
-<p>这种将中缀函数转换成前缀的方式可以帮助我们理解两个内容：</p>
-<ol type="1">
-<li>运算符优先级。</li>
-<li>引用中缀函数时要加上括号。</li>
-</ol>
-<h2 id="附运算符优先级表">附：运算符优先级表</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">+--------+----------------------+-----------------------+-------------------+</span><br><span class="line">| Prec-  |   Left associative   |    Non-associative    | Right associative |</span><br><span class="line">| edence |      operators       |       operators       |    operators      |</span><br><span class="line">+--------+----------------------+-----------------------+-------------------+</span><br><span class="line">| 9      | !!                   |                       | .                 |</span><br><span class="line">| 8      |                      |                       | ^, ^^, **         |</span><br><span class="line">| 7      | *, /, `div`,         |                       |                   |</span><br><span class="line">|        | `mod`, `rem`, `quot` |                       |                   |</span><br><span class="line">| 6      | +, -                 |                       |                   |</span><br><span class="line">| 5      |                      |                       | :, ++             |</span><br><span class="line">| 4      |                      | ==, /=, &lt;, &lt;=, &gt;, &gt;=, |                   |</span><br><span class="line">|        |                      | `elem`, `notElem`     |                   |</span><br><span class="line">| 3      |                      |                       | &amp;&amp;                |</span><br><span class="line">| 2      |                      |                       | ||                |</span><br><span class="line">| 1      | &gt;&gt;, &gt;&gt;=              |                       |                   |</span><br><span class="line">| 0      |                      |                       | $, $!, `seq`      |</span><br><span class="line">+--------+----------------------+-----------------------+-------------------+</span><br></pre></td></tr></table></figure>
-<ul>
-<li>函数调用拥有更高的优先级，可以认为其优先级是10。</li>
-</ul>
+<h2 id="kmp算法介绍">KMP算法介绍</h2>
+<p>KMP算法是一种利用模式串中的信息来尽可能减少与待匹配串的匹配次数从而大副提高效率的算法。它的核心是一个<code>next</code>表，用以记录一次匹配失败后，下次匹配开始的位置。</p>
+<h2 id="kmp匹配过程">KMP匹配过程</h2>
+<p>如何生成<code>next</code>表是KMP的核心内容，但在此之前，不妨先看看KMP算法是如何工作的。</p>
+<p>设模式串为"ABAABAC"，待匹配串为"ABABAABAABAC"。根据模式串生成的<code>next</code>表为：{0, 0, 1, 1, 2, 3, 0}。之后会介绍如何生成<code>next</code>表。这里先解释这个表的意义，<code>next[n] = k</code>意为<strong>在模式串前n位构成的子串中，其最长相等严格前后缀的长度为k。</strong></p>
+<p>解释一下黑体字就是说，对于模式串“ABAABAC”而言，其前6位构成的子串是"ABAABA"。所谓的严格前/后缀就是指除了串本身的前/后缀：<code>&#123;前/后缀&#125; - &#123;串本身&#125;</code>。相等严格前后缀是指既是串的严格前缀也是串的严格后缀的子串，对于"ABAABA"而言，其相等严格前后缀有："A"、"ABA"两个。最长相等严格前后缀显然就是"ABA"。</p>
+<p>上面这段话就可以表示为<code>next[6] = 3</code>。</p>
+<p>从位置0开始匹配，结果如下：</p>
+<figure>
+<img src="https://img.xilong.site/20211101/image-20211101183430703.png" alt="" /><figcaption>image-20211101183430703</figcaption>
+</figure>
+<p>成功匹配的位数是3，查询匹配表项<code>next[3] = 1</code>。也就是已匹配部分的末位与首位相等，因此可以直接将首位移到末位位置开始下一轮匹配：</p>
+<figure>
+<img src="https://img.xilong.site/20211101/image-20211101191242087.png" alt="" /><figcaption>image-20211101191242087</figcaption>
+</figure>
+<p>成功匹配的位数是6，注意匹配并不是从位置2开始的，而是从位置3——上次匹配失败的位置开始，查询匹配表项<code>next[6] = 3</code>。说明已匹配部分前3位与后3位相等，将前3位移到后3位的位置开始下一轮匹配：</p>
+<figure>
+<img src="https://img.xilong.site/20211101/image-20211101190744058.png" alt="" /><figcaption>image-20211101190744058</figcaption>
+</figure>
+<p>匹配成功。</p>
+<p>注意到，所谓移动其实就是从模式串的下标<code>next[匹配成功位数]</code>开始，从失败位置继续匹配。</p>
+<p>代码表示：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// str:待匹配串, pattern:模式串, next[pattern.size()]:失配表</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">kmp</span><span class="params">(<span class="type">const</span> string&amp; str, <span class="type">const</span> string&amp; pattern)</span> </span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; str.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">        <span class="comment">// j与i匹配失败而j不为0时，说明有j - 1位匹配成功。</span></span><br><span class="line">        <span class="comment">// 尝试使用pattern[next[j - 1]]从失败位置继续匹配，直到</span></span><br><span class="line">        <span class="comment">//    1. j == 0</span></span><br><span class="line">        <span class="comment">//    2. 匹配成功</span></span><br><span class="line">        <span class="keyword">while</span> (j &gt; <span class="number">0</span> &amp;&amp; pattern[j] != str[i]) &#123;</span><br><span class="line">            j = next[j - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 匹配成功则成功位数+1</span></span><br><span class="line">        <span class="keyword">if</span> (pattern[j] == str[i]) &#123;</span><br><span class="line">            ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 若匹配成功位数等于模式串大小，说明模式匹配成功，记录下这个位置。</span></span><br><span class="line">        <span class="keyword">if</span> (j == pattern.<span class="built_in">size</span>()) &#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(i - pattern.<span class="built_in">size</span>() + <span class="number">1</span>);</span><br><span class="line">            j = next[j - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="next表生成">next表生成</h2>
+<p>next表的生成方法可以理解成使用模式串去匹配自身。数学证明太过复杂按下不表，先上代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">next</span><span class="params">(<span class="type">const</span> string &amp;str)</span> </span>&#123;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">result</span><span class="params">(str.length(), <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="type">int</span> k = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; result.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">        <span class="comment">// k &gt; 0且匹配失败说明之前存在k - 1位的匹配成功。</span></span><br><span class="line">        <span class="comment">// 尝试使用str[result[k - 1]]与str[i]继续匹配</span></span><br><span class="line">        <span class="keyword">while</span> (k &gt; <span class="number">0</span> &amp;&amp; str[k] != str[i]) &#123;</span><br><span class="line">            k = result[k - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果匹配成功，则说明str前i位这个子串的后k位与前k位相同</span></span><br><span class="line">        <span class="comment">// 即result[i] = k;</span></span><br><span class="line">        <span class="keyword">if</span> (str[k] == str[i]) &#123;</span><br><span class="line">            ++k;</span><br><span class="line">        &#125;</span><br><span class="line">        result[i] = k;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出与kmp匹配过程的代码非常相似，图解如下：</p>
+<p>例P="ABCDABA"</p>
+<figure>
+<img src="https://img.xilong.site/20211101/image-20211101211913745.png" alt="" /><figcaption>image-20211101211913745</figcaption>
+</figure>
+<p>因为严格前/后缀不能等于自身，因此从第2位开始匹配，并将第一位结果置0。可见匹配失败，且<code>k=0</code>，将此位结果置0，进入下一位。</p>
+<figure>
+<img src="https://img.xilong.site/20211101/image-20211101212012168.png" alt="" /><figcaption>image-20211101212012168</figcaption>
+</figure>
+<p>依然不匹配，且<code>k=0</code>，置0进入下一位。</p>
+<figure>
+<img src="https://img.xilong.site/20211101/image-20211101212117026.png" alt="" /><figcaption>image-20211101212117026</figcaption>
+</figure>
+<p>还是不匹配，且<code>k=0</code>，置0进入下一位。</p>
+<figure>
+<img src="https://img.xilong.site/20211101/image-20211101212427058.png" alt="" /><figcaption>image-20211101212427058</figcaption>
+</figure>
+<p>匹配，<code>++k</code>，并置<code>结果=k=1</code>。由于下一步比较时<code>k=1</code>增量与比较步长相同，看起来好像没有移动。</p>
+<figure>
+<img src="https://img.xilong.site/20211101/image-20211101212506554.png" alt="" /><figcaption>image-20211101212506554</figcaption>
+</figure>
+<p>匹配，<code>++k</code>，并置<code>结果=k=2</code>。进入下一步。</p>
+<figure>
+<img src="https://img.xilong.site/20211101/image-20211101212649204.png" alt="" /><figcaption>image-20211101212649204</figcaption>
+</figure>
+<p>不匹配，且<code>k &gt; 0</code>试图取<code>next[k - 1] = next[1] = 0</code>与该位比较。</p>
+<figure>
+<img src="https://img.xilong.site/20211101/image-20211101212832132.png" alt="" /><figcaption>image-20211101212832132</figcaption>
+</figure>
+<p>匹配，且<code>k=0</code>，<code>++k</code>置<code>结果=k=1</code>。结束匹配过程。</p>
+<p>最终结果<code>next=&#123;0,0,0,0,1,2,1&#125;</code>。</p>
 ]]></content>
       <categories>
-        <category>从零开始的Haskell</category>
+        <category>数据结构和算法</category>
       </categories>
       <tags>
-        <tag>Haskell</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -4548,6 +4468,86 @@
       </tags>
   </entry>
   <entry>
+    <title>Haskell：理解惰性求值与运算符优先级</title>
+    <url>/blog/2022/01/08/0033-Haskell:operator_and_lazy/</url>
+    <content><![CDATA[<blockquote>
+<p>做 <a class="link"   href="https://www.seas.upenn.edu/~cis194/spring13/hw/06-laziness.pdf" >CIS 194 HomeWork6<i class="fas fa-external-link-alt"></i></a>时遇到了各种思维方面的困难。试图通过梳理它们加深对运算符优先级和惰性求值的理解。</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="引言fibonacci数列">引言：Fibonacci数列</h2>
+<p>斐波那契数列，相信大家都很熟悉了，每个人刚接触递归与动态规划的思想时候都会看到它的身影。其定义为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fib(1) = 1</span><br><span class="line">fib(2) = 1</span><br><span class="line">fib(n) = fib(n - 1) + fib(n - 2), n &gt; 2</span><br></pre></td></tr></table></figure>
+<p>这在Haskell中是很容易实现的：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">fib</span> :: <span class="type">Integer</span> -&gt; <span class="type">Integer</span></span><br><span class="line"><span class="title">fib</span> <span class="number">1</span> = <span class="number">1</span></span><br><span class="line"><span class="title">fib</span> <span class="number">2</span> = <span class="number">1</span></span><br><span class="line"><span class="title">fib</span> n = fib (n - <span class="number">1</span>) + fib (n - <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="fib函数的递推实现">fib函数的递推实现</h2>
+<p>不难看出，上面的实现非常自然，几乎与数学方式给出的定义一样。然而大家可能都知道，这种定义方式的计算效率是很低的，在过程式语言中可以引出DP思想：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">fib</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="type">int</span> fibs[n] = &#123;<span class="number">1</span>,<span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        fibs[i] = fibs[i - <span class="number">1</span>] + fibs[i - <span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fibs[n - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样的计算方法将可能重复使用的资源记录了下来，使用少量空间换取了大量的时间。并且也很符合人的直觉。可以拆解成两步：</p>
+<ol type="1">
+<li>维护一个长度至少为n的数列。</li>
+<li>取出数列中对应的元素。</li>
+</ol>
+<p>那么在Haskell这样的无副作用语言中如何实现对列表的维护呢？如果使用下面方式：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">fibs</span> :: [<span class="type">Integer</span>]</span><br><span class="line"><span class="title">fibs</span> = map fib [<span class="number">1</span>..]</span><br></pre></td></tr></table></figure>
+<p>则不仅无法使用这个列表记录已使用的计算，反而每一步都要耗费大量的计算资源。这里如果根据直觉实现递推，或许会实现出这样的东西：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">fibs</span> :: [<span class="type">Integer</span>]</span><br><span class="line"><span class="title">fibs</span> = map fib&#x27; [<span class="number">1</span>..]</span><br><span class="line">	<span class="keyword">where</span></span><br><span class="line">		fib&#x27; <span class="number">1</span> = <span class="number">1</span></span><br><span class="line">		fib&#x27; <span class="number">2</span> = <span class="number">1</span></span><br><span class="line">		fib&#x27; n = fibs!!(n - <span class="number">1</span>) + fibs!!(n - <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>然而，这样会寻致计算<code>!!</code>的时候试图求出<code>fib</code>的值，因此会进入一个死循环。不可行。</p>
+<p>那么我们在<a class="link"   href="https://www.seas.upenn.edu/~cis194/spring13/lectures/06-laziness.html" >Lecture 6<i class="fas fa-external-link-alt"></i></a>中见过的<code>Data.Array</code>可以完成这个任务吗？答案是不行，它仅仅是一个对列表的封装，本身不支持处理无限列表。且此处并不需要使用映射。</p>
+<p>黔驴技穷了，上网搜索解法，发现可以使用<code>zipWith</code>实现如下：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">fibs</span> :: [<span class="type">Integer</span>]</span><br><span class="line"><span class="title">fibs</span> = <span class="number">1</span>:<span class="number">1</span>:zipWith (+) fibs (tail fibs)</span><br></pre></td></tr></table></figure>
+<p>于是开始了我的迷惑之旅。</p>
+<h2 id="惰性求值">惰性求值</h2>
+<p>对于<code>fibs = 1:1:zipWith (+) fibs (tail fibs)</code>这种形式的定义，我简直闻所未闻。定义中不仅出现了自身，甚至出现了对自身的嵌套运算。将上式转换为C++形式可以帮助我们快速发现蹊跷：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1:1:zipWith (+) fibs (tail fibs) == (:) (1) ((:) (1) (zipWith (+) fibs (tail fibs)))</span></span><br><span class="line"><span class="function">list <span class="title">cons</span><span class="params">(Num i, list tail)</span></span>;</span><br><span class="line"><span class="function">list <span class="title">zipWith</span><span class="params">(operation op, list a, list b)</span></span>;</span><br><span class="line"><span class="function">list <span class="title">tail</span><span class="params">(list l)</span></span>;</span><br><span class="line"><span class="function">list <span class="title">fibs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">cons</span>(<span class="number">1</span>, <span class="built_in">cons</span>(<span class="number">1</span>, <span class="built_in">zipWith</span>(plus, <span class="built_in">fibs</span>(), <span class="built_in">tail</span>(<span class="built_in">fibs</span>()))));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以发现一个很明显的问题，这个函数没有递归终止条件。而在C++这样的直接求值语言中，这会导致传参时无限递归，计算不出任何结果。然而对于惰性求值的Haskell而言，就不存在这个问题了，首先看看<code>zipWith</code>的定义：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">zipWith</span> :: (a-&gt;b-&gt;c) -&gt; [a] -&gt; [b] -&gt; [c]</span><br><span class="line"><span class="title">zipWith</span> f = go</span><br><span class="line">  <span class="keyword">where</span></span><br><span class="line">    go [] _ = []</span><br><span class="line">    go _ [] = []</span><br><span class="line">    go (x:xs) (y:ys) = f x y : go xs ys</span><br></pre></td></tr></table></figure>
+<p>由于这个函数没有用到如<code>!!</code>或<code>length</code>这类需要先将值计算出来的函数，符合惰性求值的作用条件，计算过程如下：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">fibs</span> = <span class="number">1</span>:<span class="number">1</span>:zipWith (+) fibs (tail fibs)</span><br><span class="line"> == <span class="number">1</span>:<span class="number">1</span>:(go (<span class="number">1</span>: (<span class="number">1</span>:ys))</span><br><span class="line"> == <span class="number">1</span>:<span class="number">1</span>:((<span class="number">1</span> + <span class="number">1</span>) : xs : ys)</span><br><span class="line"> == <span class="number">1</span>:<span class="number">1</span>:((<span class="number">1</span> + <span class="number">1</span>) : tail fibs : tail (tail fibs))</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
+<p>可以总结出一条规律，要想使用惰性求值特性，就要使每一个计算步骤都不依赖完整的结果。</p>
+<h2 id="谈谈运算符优先级">谈谈运算符优先级</h2>
+<ul>
+<li>Why not <code>fib = 1:1:(zipWith (+) fibs (tail fibs))</code></li>
+</ul>
+<p>这里的答案是<code>:</code>运算符是<code>cons</code>函数的语法糖，而<code>[emelments]</code>又是<code>:</code>的语法糖，关系如下：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] == <span class="number">1</span>:<span class="number">2</span>:<span class="number">3</span>:[] == cons <span class="number">1</span> (cons <span class="number">2</span> (cons <span class="number">3</span> []))</span><br></pre></td></tr></table></figure>
+<p>不难看出，为满足这个关系，<code>:</code>是一个右结合运算符。因此：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>:<span class="number">1</span>:(zipWith (+) fibs (tail fibs))</span><br><span class="line">== <span class="number">1</span>:(<span class="number">1</span>:((zipWith (+) fibs (tail fibs))))</span><br><span class="line">== <span class="number">1</span>:(<span class="number">1</span>:(zipWith (+) fibs (tail fibs)))</span><br><span class="line">== <span class="number">1</span>:<span class="number">1</span>:zipWith (+) fibs (tail fibs)</span><br></pre></td></tr></table></figure>
+<p>之所以可以将<code>zipWith (+) fibs (tail fibs)</code>看做一个整体，是因为前缀函数调用的优先级高于中缀函数。</p>
+<p>而不可以将<code>zipWith (+) fibs (tail fibs)</code>写做<code>zipWith (+) fibs tail fibs</code>，则是因为前缀函数调用优先级相同，且从左向右开始分析。因此上式等价于：<code>(zipWith (+) fibs tail) fibs</code>。</p>
+<ul>
+<li>Why not <code>fib = 1:1:zipWith (+) fibs $ tail fibs</code></li>
+</ul>
+<p>根据<code>$</code>运算符的作用是“<em>省略之后的括号</em>”来理解，这样写是可行的，然而这个理解是错误的。<code>$</code>运算符真正的作用是，将<strong>前后两部分都括上括号</strong>。因此上式转换为前缀写法后，错误就显而易见了，如下：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">($) (<span class="number">1</span>:<span class="number">1</span>:zipWith (+) fibs) (tail fibs)</span><br><span class="line">($) (cons <span class="number">1</span> (cons <span class="number">1</span> (zipWith (+) fibs))) (tail fibs)</span><br></pre></td></tr></table></figure>
+<p>值得一提的是<code>$</code>的函数原型：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">($) :: (a -&gt; b) -&gt; a -&gt; b</span><br><span class="line">($) = id</span><br></pre></td></tr></table></figure>
+<p>即接受一个函数，然后返回该函数本身。唯一的作用就是用其极低的运算优先级来省略多余的括号。没错，是极低的优先级，这有违直觉。因为直觉上似乎是：<em>“<code>$</code>运算符以极高的运算优先级为它的左右两边加上了括号”</em>。然而我们不妨思考一下，括号的意义正是优先运算，为了让自己的左右都先于自己运算，它的优先级必然很低。（事实上<code>$</code>的运算优先级是最低的一级，参见后附优先级表。）</p>
+<p>考虑以下例子：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">f</span> :: a -&gt; b</span><br><span class="line"><span class="title">g</span> :: c -&gt; a</span><br><span class="line"></span><br><span class="line"><span class="title">f</span> g x == (f g) x</span><br><span class="line"><span class="title">f</span> $ g x /= ((f $) g) x</span><br><span class="line"><span class="title">map</span> + [<span class="number">1</span>] /= map (+) [<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<p>为什么同样是占据高优先级函数的参数位置，中缀运算符不会被当作参数传递呢？因为当我们使用中缀函数时，实际上表达式会被当作等价的前缀形式来处理，即：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">f</span> $ g x == ($) (f) (g x) == ($ f) (g x) == f (g x) <span class="comment">-- 注意：当转换为前缀形式后，由于所有的函数都成为了前缀函数，不再有优先级一说。</span></span><br><span class="line"><span class="title">map</span> + [<span class="number">1</span>] == (+) (map) ([<span class="number">1</span>]) == (+ map) ([<span class="number">1</span>]) <span class="comment">-- 错误：函数(+ map)参数类型与[]不匹配。</span></span><br></pre></td></tr></table></figure>
+<p>上例也可看出，所谓的优先级只在中缀表达式到前缀表达式的转换中有效，即：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">(f.g) x == ((.) f g) (x)</span><br><span class="line"><span class="title">f</span>.g $ x == ($) (f.g) (x) == ($) ((.) f g) (x)</span><br><span class="line"><span class="number">1</span> + <span class="number">2</span> * <span class="number">3</span> + <span class="number">4</span> </span><br><span class="line">  == (+) (<span class="number">1</span> + <span class="number">2</span> * <span class="number">3</span>) + (<span class="number">4</span>) </span><br><span class="line">  == (+) ((+) (<span class="number">1</span>) (<span class="number">2</span> * <span class="number">3</span>)) (<span class="number">4</span>) </span><br><span class="line">  == (+) ((+) (<span class="number">1</span>) ((*) <span class="number">2</span> <span class="number">3</span>)) <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>这里又可看出一个有趣的规律：优先级不同的运算符先转换较低级的，同级的运算符则根据结合律来决定顺序（转换顺序与结合顺序相反）。即后运算的先转换。</p>
+<p>这种将中缀函数转换成前缀的方式可以帮助我们理解两个内容：</p>
+<ol type="1">
+<li>运算符优先级。</li>
+<li>引用中缀函数时要加上括号。</li>
+</ol>
+<h2 id="附运算符优先级表">附：运算符优先级表</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">+--------+----------------------+-----------------------+-------------------+</span><br><span class="line">| Prec-  |   Left associative   |    Non-associative    | Right associative |</span><br><span class="line">| edence |      operators       |       operators       |    operators      |</span><br><span class="line">+--------+----------------------+-----------------------+-------------------+</span><br><span class="line">| 9      | !!                   |                       | .                 |</span><br><span class="line">| 8      |                      |                       | ^, ^^, **         |</span><br><span class="line">| 7      | *, /, `div`,         |                       |                   |</span><br><span class="line">|        | `mod`, `rem`, `quot` |                       |                   |</span><br><span class="line">| 6      | +, -                 |                       |                   |</span><br><span class="line">| 5      |                      |                       | :, ++             |</span><br><span class="line">| 4      |                      | ==, /=, &lt;, &lt;=, &gt;, &gt;=, |                   |</span><br><span class="line">|        |                      | `elem`, `notElem`     |                   |</span><br><span class="line">| 3      |                      |                       | &amp;&amp;                |</span><br><span class="line">| 2      |                      |                       | ||                |</span><br><span class="line">| 1      | &gt;&gt;, &gt;&gt;=              |                       |                   |</span><br><span class="line">| 0      |                      |                       | $, $!, `seq`      |</span><br><span class="line">+--------+----------------------+-----------------------+-------------------+</span><br></pre></td></tr></table></figure>
+<ul>
+<li>函数调用拥有更高的优先级，可以认为其优先级是10。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>从零开始的Haskell</category>
+      </categories>
+      <tags>
+        <tag>Haskell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CF-R765-B题解</title>
     <url>/blog/2022/01/13/0035-CF-R765-B/</url>
     <content><![CDATA[<blockquote>
@@ -5627,6 +5627,28 @@
       </tags>
   </entry>
   <entry>
+    <title>我咽下一枚铁做的月亮</title>
+    <url>/blog/2021/06/10/L012-%E6%88%91%E5%92%BD%E4%B8%8B%E4%B8%80%E6%9E%9A%E9%93%81%E5%81%9A%E7%9A%84%E6%9C%88%E4%BA%AE/</url>
+    <content><![CDATA[<p>我咽下一枚铁做的月亮</p>
+<p>他们管它叫做螺丝</p>
+<span id="more"></span>
+<p>我咽下这工业的废水，失业的订单</p>
+<p>那些低于机台的青春早早夭亡</p>
+<p>我咽下奔波，咽下游离失所</p>
+<p>咽下人行天桥，咽下长满水锈的生活</p>
+<p>我再咽不下了</p>
+<p>所有我曾经咽下的现在都从喉咙汹涌而出</p>
+<p>在祖国的领土上铺成一首</p>
+<p>耻辱的诗</p>
+]]></content>
+      <categories>
+        <category>摘录</category>
+      </categories>
+      <tags>
+        <tag>诗</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>我看过草叶葳蕤</title>
     <url>/blog/2019/08/20/L007-%E6%88%91%E7%9C%8B%E8%BF%87%E8%8D%89%E5%8F%B6%E8%91%B3%E8%95%A4/</url>
     <content><![CDATA[<h2 id="一">一</h2>
@@ -5967,28 +5989,6 @@
       </tags>
   </entry>
   <entry>
-    <title>我咽下一枚铁做的月亮</title>
-    <url>/blog/2021/06/10/L012-%E6%88%91%E5%92%BD%E4%B8%8B%E4%B8%80%E6%9E%9A%E9%93%81%E5%81%9A%E7%9A%84%E6%9C%88%E4%BA%AE/</url>
-    <content><![CDATA[<p>我咽下一枚铁做的月亮</p>
-<p>他们管它叫做螺丝</p>
-<span id="more"></span>
-<p>我咽下这工业的废水，失业的订单</p>
-<p>那些低于机台的青春早早夭亡</p>
-<p>我咽下奔波，咽下游离失所</p>
-<p>咽下人行天桥，咽下长满水锈的生活</p>
-<p>我再咽不下了</p>
-<p>所有我曾经咽下的现在都从喉咙汹涌而出</p>
-<p>在祖国的领土上铺成一首</p>
-<p>耻辱的诗</p>
-]]></content>
-      <categories>
-        <category>摘录</category>
-      </categories>
-      <tags>
-        <tag>诗</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>过与挂的边缘</title>
     <url>/blog/2021/07/18/L014-%E8%BF%87%E4%B8%8E%E6%8C%82%E7%9A%84%E8%BE%B9%E7%BC%98/</url>
     <content><![CDATA[<blockquote>
@@ -6143,6 +6143,44 @@
       <categories>
         <category>写作</category>
       </categories>
+  </entry>
+  <entry>
+    <title>横亘在人与人之间的鸿沟 ——读《献给阿尔吉侬的花束》</title>
+    <url>/blog/2018/08/24/L017-%E6%A8%AA%E4%BA%98%E5%9C%A8%E4%BA%BA%E4%B8%8E%E4%BA%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E9%B8%BF%E6%B2%9F%E2%80%94%E2%80%94%E8%AF%BB%E3%80%8A%E7%8C%AE%E7%BB%99%E9%98%BF%E5%B0%94%E5%90%89%E4%BE%AC%E7%9A%84%E8%8A%B1%E6%9D%9F%E3%80%8B/</url>
+    <content><![CDATA[<blockquote>
+<p>高二的一个晚自习上随手写的读后感，收作纪念。</p>
+</blockquote>
+<p>这本书记述了一个人由黑暗中走出，回顾黑暗，审视黑暗，回过头被光明晃得头晕目眩，再一步步挣扎着被拖回黑暗的过程。</p>
+<p>这样的一个过程里，处处是对人性的讨论和对生活的假设。生与死，自我欺骗，认知差异，傲慢，自卑，情绪化......如同一条条鸿沟横亘在每一个人中间，人们因此无法相互理解。在我看来，对“理解”的思考，正是全书的主题。</p>
+<p>在查理.高登短暂的旅途里，他的每一种状态，他对世界的态度与世界对他的态度，都在或多或少的对某一类特定的状态造成的理解差异做出讨论。最浅显也最主要的，便是对智力造成的差异的探讨，并在此基础上，将理解的差异扩散到了其他层面上。</p>
+<p>傲慢和自卑，造就了这个故事里一切的恶意。这两种心理背后共同的根源，是虚荣。虚荣，是对于某种身份认同的渴望，是对一种自己并不具备的品质的伪装。面包店众人和教授对查理的恶意，母亲对查理的逼迫，皆出于此。虚荣，正是造成理解隔阂的一大原因。</p>
+<p>造成理解隔阂的另一原因，在于过于的自我与自利，每个人站在自己的立场上，事事由自己出发。他们永远无法理解他人，因为他们从未试图理解他人。</p>
+<p>阿尔吉侬，是对消除理解差异的一次失败尝试，而献给他的花束，则是对无法相互理解的人们的悲哀与缅怀。</p>
+<p>记得这捧花，不要沉浸在无知的深渊里。</p>
+]]></content>
+      <categories>
+        <category>写作</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>仿写：《春赋》</title>
+    <url>/blog/2019/08/24/L018-%E4%BB%BF%E5%86%99%E3%80%8A%E6%98%A5%E8%B5%8B%E3%80%8B/</url>
+    <content><![CDATA[<blockquote>
+<p>大一写作基础课的作业，跟据图片仿写《春赋》，自觉有记念价值。</p>
+</blockquote>
+<span id="more"></span>
+<p>”苔始绿而藏鱼，麦才青而覆雉。吹箫弄玉之台，鸣佩凌波之水。移戚里而家富，入新丰而酒美。石榴聊泛，蒲桃酦醅。芙蓉玉碗，莲子金杯。新芽竹笋，细核杨梅。绿珠捧琴至，文君送酒来。“——《春赋》庾信</p>
+<figure>
+<img src="https://img.xilong.site/20210824/chunfu.jpg" alt="" /><figcaption>插图</figcaption>
+</figure>
+<p>雨将霁而飞鸟，雾初散而见叶。青墨泼卷之峰，清平明镜之潭。泛轻舟而神怡，沐清风而凉意。芊竹素洁，张弦入水。拙朴木盏，无文瓷樽。粗茶半两，滚水一杯。沉沉将睡去，鱼儿上钩来。</p>
+]]></content>
+      <categories>
+        <category>写作</category>
+      </categories>
+      <tags>
+        <tag>诗</tag>
+      </tags>
   </entry>
   <entry>
     <title>小张和小丽</title>
@@ -7977,41 +8015,47 @@
       </tags>
   </entry>
   <entry>
-    <title>横亘在人与人之间的鸿沟 ——读《献给阿尔吉侬的花束》</title>
-    <url>/blog/2018/08/24/L017-%E6%A8%AA%E4%BA%98%E5%9C%A8%E4%BA%BA%E4%B8%8E%E4%BA%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E9%B8%BF%E6%B2%9F%E2%80%94%E2%80%94%E8%AF%BB%E3%80%8A%E7%8C%AE%E7%BB%99%E9%98%BF%E5%B0%94%E5%90%89%E4%BE%AC%E7%9A%84%E8%8A%B1%E6%9D%9F%E3%80%8B/</url>
-    <content><![CDATA[<blockquote>
-<p>高二的一个晚自习上随手写的读后感，收作纪念。</p>
-</blockquote>
-<p>这本书记述了一个人由黑暗中走出，回顾黑暗，审视黑暗，回过头被光明晃得头晕目眩，再一步步挣扎着被拖回黑暗的过程。</p>
-<p>这样的一个过程里，处处是对人性的讨论和对生活的假设。生与死，自我欺骗，认知差异，傲慢，自卑，情绪化......如同一条条鸿沟横亘在每一个人中间，人们因此无法相互理解。在我看来，对“理解”的思考，正是全书的主题。</p>
-<p>在查理.高登短暂的旅途里，他的每一种状态，他对世界的态度与世界对他的态度，都在或多或少的对某一类特定的状态造成的理解差异做出讨论。最浅显也最主要的，便是对智力造成的差异的探讨，并在此基础上，将理解的差异扩散到了其他层面上。</p>
-<p>傲慢和自卑，造就了这个故事里一切的恶意。这两种心理背后共同的根源，是虚荣。虚荣，是对于某种身份认同的渴望，是对一种自己并不具备的品质的伪装。面包店众人和教授对查理的恶意，母亲对查理的逼迫，皆出于此。虚荣，正是造成理解隔阂的一大原因。</p>
-<p>造成理解隔阂的另一原因，在于过于的自我与自利，每个人站在自己的立场上，事事由自己出发。他们永远无法理解他人，因为他们从未试图理解他人。</p>
-<p>阿尔吉侬，是对消除理解差异的一次失败尝试，而献给他的花束，则是对无法相互理解的人们的悲哀与缅怀。</p>
-<p>记得这捧花，不要沉浸在无知的深渊里。</p>
-]]></content>
-      <categories>
-        <category>写作</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>仿写：《春赋》</title>
-    <url>/blog/2019/08/24/L018-%E4%BB%BF%E5%86%99%E3%80%8A%E6%98%A5%E8%B5%8B%E3%80%8B/</url>
-    <content><![CDATA[<blockquote>
-<p>大一写作基础课的作业，跟据图片仿写《春赋》，自觉有记念价值。</p>
-</blockquote>
+    <title>虚构文学创作练习04——两个人走出一座建筑</title>
+    <url>/blog/2022/01/11/L019-%E8%99%9A%E6%9E%84%E6%96%87%E5%AD%A6%E5%88%9B%E4%BD%9C%E7%BB%83%E4%B9%A004%E2%80%94%E2%80%94%E4%B8%A4%E4%B8%AA%E4%BA%BA%E8%B5%B0%E5%87%BA%E4%B8%80%E5%BA%A7%E5%BB%BA%E7%AD%91/</url>
+    <content><![CDATA[<p>小丑卸了妆，慢慢走出了小剧场那扇朽得摇摇欲坠的后门。怀里小心地护着他演出用的洋娃娃，使走姿显得有些怪异。出了门，便是一条小巷，偏僻得连满街涌动的垃圾都不愿光顾。时值隆冬，漫天的云在小镇上空压着，阴风吹了好几天，到这天夜里终于见了雪。零星几盏仿佛被遗忘此处的街灯，散发着昏黄的光线，依稀映着路面上的薄薄积雪。</p>
 <span id="more"></span>
-<p>”苔始绿而藏鱼，麦才青而覆雉。吹箫弄玉之台，鸣佩凌波之水。移戚里而家富，入新丰而酒美。石榴聊泛，蒲桃酦醅。芙蓉玉碗，莲子金杯。新芽竹笋，细核杨梅。绿珠捧琴至，文君送酒来。“——《春赋》庾信</p>
-<figure>
-<img src="https://img.xilong.site/20210824/chunfu.jpg" alt="" /><figcaption>插图</figcaption>
-</figure>
-<p>雨将霁而飞鸟，雾初散而见叶。青墨泼卷之峰，清平明镜之潭。泛轻舟而神怡，沐清风而凉意。芊竹素洁，张弦入水。拙朴木盏，无文瓷樽。粗茶半两，滚水一杯。沉沉将睡去，鱼儿上钩来。</p>
+<p>此时雪下得正盛，雪花们在灯光下翩然起舞。小丑沿着这条巷子缓缓走着，靴子踩在薄薄的雪毯上，发出规律的嘎吱声。风虽小了些，却不见停，时有乱雪飘入眼睛。他不得不眯起双眼，脚步却愈发轻快了起来，不时搂着他的洋娃娃转上一圈，在雪中跳起舞来。模糊的视线中，洋娃娃金黄的发丝与空中银白色的丝线相互纠缠。</p>
+<p>雨雪天总是显得很安静，尤其是在空荡荡的小巷里。小丑快速迈出两步，站定，优雅地抖落身上的雪，向前方浅鞠一躬。整理了下衣装，继续缓缓前行。</p>
+<p>回到租住的老旧公寓，</p>
 ]]></content>
       <categories>
         <category>写作</category>
       </categories>
       <tags>
-        <tag>诗</tag>
+        <tag>故事</tag>
+        <tag>虚构文学创作练习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《雪国》阅读笔记01——开幕</title>
+    <url>/blog/2022/01/12/L020-%E3%80%8A%E9%9B%AA%E5%9B%BD%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B001%E2%80%94%E2%80%94%E5%BC%80%E5%B9%95/</url>
+    <content><![CDATA[<blockquote>
+<p>被《雪国》的写作风格所吸引，试图学习一下。</p>
+</blockquote>
+<span id="more"></span>
+<p>开篇非常简单的两句话交代了时间和地点。"穿过...便是...停了下来"三个连续的状态给人一种时间上的连贯感。</p>
+<p>第二段完成了外景到内景的切换。引出了场景中的主要元素：岛村，与火车这段情节的女主角：叶子姑娘。</p>
+<p>顺序上，“一个姑娘从对面座位上站起”而不是“对面座位上的一个姑娘站起”，表达出了一种注意力随姑娘的动态转移的过程。先是注意到姑娘，才是座位，再是座位前的玻璃窗。同时，“对面”一词将读者的视角固定在了岛村所在的位置。</p>
+<p>整句话几乎是一个第一人称的视角描写，甚至把“岛村”换成“我”也不会有太大的不妥之处。增强了第三人称下的代入感 。</p>
+<p>这里领悟了一个提高代入感的技巧。作者必需要清楚笔下的世界是什么样子，但要选择性地向读者透露信息。第三人称下也要将信息限制在人物的认知范围内，通过人物来披露信息。尽可能少地行使作者的解说权。这里使用“岛村”和“一位姑娘”这样的称呼带来的就是一种微妙的信息差。结合之前描写中预设的方位，让我们不自主地代入到岛村的角度去看，去听，去思考。</p>
+<p>“姑娘打开窗子”后若立即再写“姑娘探出身子”，连续两句话主语相同会有点啰嗦的感觉，合并成一句话又嫌同一句话里动作太多。这中间插入一句“冷空气袭进来。”就适当的打断了连续的描写，又符合注意力改变的规律。</p>
+<p>接着用姑娘的动作将注意力引向窗外和站长先生的对话。站长登场，注意描写顺序：围巾、帽子、手拿提灯、踏着雪。是一个从上到下的视线移动。</p>
+<p>对话中可以披露出人物相关的信息。在叶子和站长的对话中先后透露出了叶子的名字，有一个弟弟等基本信息，以及从这些信息与语气上对叶子的性格进行了侧写。</p>
+<p>叶子起身、开窗、对话的系列动作以关窗捂脸结束。</p>
+<p>此时叶子作为被观察的对象静止了下来，注意力自然回收。适时地对之前的对话中不便透露的信息进行补充。</p>
+<p>最后交代男主角的岛村的心理活动，以“产生兴趣”和“增添了不少感伤”两个略带缺憾的状态结束了开头这一幕。</p>
+<p>叙事节奏为远景，内景、对兴趣点（叶子姑娘）的观察，以及观察带来的影响（产生兴趣）。同过主角产生兴趣，调动得读者也对这一神秘的姑娘产生了兴趣。</p>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>分析</tag>
       </tags>
   </entry>
   <entry>
@@ -8330,50 +8374,6 @@
       </categories>
       <tags>
         <tag>故事</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>虚构文学创作练习04——两个人走出一座建筑</title>
-    <url>/blog/2022/01/11/L019-%E8%99%9A%E6%9E%84%E6%96%87%E5%AD%A6%E5%88%9B%E4%BD%9C%E7%BB%83%E4%B9%A004%E2%80%94%E2%80%94%E4%B8%A4%E4%B8%AA%E4%BA%BA%E8%B5%B0%E5%87%BA%E4%B8%80%E5%BA%A7%E5%BB%BA%E7%AD%91/</url>
-    <content><![CDATA[<p>小丑卸了妆，慢慢走出了小剧场那扇朽得摇摇欲坠的后门。怀里小心地护着他演出用的洋娃娃，使走姿显得有些怪异。出了门，便是一条小巷，偏僻得连满街涌动的垃圾都不愿光顾。时值隆冬，漫天的云在小镇上空压着，阴风吹了好几天，到这天夜里终于见了雪。零星几盏仿佛被遗忘此处的街灯，散发着昏黄的光线，依稀映着路面上的薄薄积雪。</p>
-<span id="more"></span>
-<p>此时雪下得正盛，雪花们在灯光下翩然起舞。小丑沿着这条巷子缓缓走着，靴子踩在薄薄的雪毯上，发出规律的嘎吱声。风虽小了些，却不见停，时有乱雪飘入眼睛。他不得不眯起双眼，脚步却愈发轻快了起来，不时搂着他的洋娃娃转上一圈，在雪中跳起舞来。模糊的视线中，洋娃娃金黄的发丝与空中银白色的丝线相互纠缠。</p>
-<p>雨雪天总是显得很安静，尤其是在空荡荡的小巷里。小丑快速迈出两步，站定，优雅地抖落身上的雪，向前方浅鞠一躬。整理了下衣装，继续缓缓前行。</p>
-<p>回到租住的老旧公寓，</p>
-]]></content>
-      <categories>
-        <category>写作</category>
-      </categories>
-      <tags>
-        <tag>故事</tag>
-        <tag>虚构文学创作练习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《雪国》阅读笔记01——开幕</title>
-    <url>/blog/2022/01/12/L020-%E3%80%8A%E9%9B%AA%E5%9B%BD%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B001%E2%80%94%E2%80%94%E5%BC%80%E5%B9%95/</url>
-    <content><![CDATA[<blockquote>
-<p>被《雪国》的写作风格所吸引，试图学习一下。</p>
-</blockquote>
-<span id="more"></span>
-<p>开篇非常简单的两句话交代了时间和地点。"穿过...便是...停了下来"三个连续的状态给人一种时间上的连贯感。</p>
-<p>第二段完成了外景到内景的切换。引出了场景中的主要元素：岛村，与火车这段情节的女主角：叶子姑娘。</p>
-<p>顺序上，“一个姑娘从对面座位上站起”而不是“对面座位上的一个姑娘站起”，表达出了一种注意力随姑娘的动态转移的过程。先是注意到姑娘，才是座位，再是座位前的玻璃窗。同时，“对面”一词将读者的视角固定在了岛村所在的位置。</p>
-<p>整句话几乎是一个第一人称的视角描写，甚至把“岛村”换成“我”也不会有太大的不妥之处。增强了第三人称下的代入感 。</p>
-<p>这里领悟了一个提高代入感的技巧。作者必需要清楚笔下的世界是什么样子，但要选择性地向读者透露信息。第三人称下也要将信息限制在人物的认知范围内，通过人物来披露信息。尽可能少地行使作者的解说权。这里使用“岛村”和“一位姑娘”这样的称呼带来的就是一种微妙的信息差。结合之前描写中预设的方位，让我们不自主地代入到岛村的角度去看，去听，去思考。</p>
-<p>“姑娘打开窗子”后若立即再写“姑娘探出身子”，连续两句话主语相同会有点啰嗦的感觉，合并成一句话又嫌同一句话里动作太多。这中间插入一句“冷空气袭进来。”就适当的打断了连续的描写，又符合注意力改变的规律。</p>
-<p>接着用姑娘的动作将注意力引向窗外和站长先生的对话。站长登场，注意描写顺序：围巾、帽子、手拿提灯、踏着雪。是一个从上到下的视线移动。</p>
-<p>对话中可以披露出人物相关的信息。在叶子和站长的对话中先后透露出了叶子的名字，有一个弟弟等基本信息，以及从这些信息与语气上对叶子的性格进行了侧写。</p>
-<p>叶子起身、开窗、对话的系列动作以关窗捂脸结束。</p>
-<p>此时叶子作为被观察的对象静止了下来，注意力自然回收。适时地对之前的对话中不便透露的信息进行补充。</p>
-<p>最后交代男主角的岛村的心理活动，以“产生兴趣”和“增添了不少感伤”两个略带缺憾的状态结束了开头这一幕。</p>
-<p>叙事节奏为远景，内景、对兴趣点（叶子姑娘）的观察，以及观察带来的影响（产生兴趣）。同过主角产生兴趣，调动得读者也对这一神秘的姑娘产生了兴趣。</p>
-]]></content>
-      <categories>
-        <category>阅读</category>
-      </categories>
-      <tags>
-        <tag>分析</tag>
       </tags>
   </entry>
   <entry>

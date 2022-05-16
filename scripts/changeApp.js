@@ -21,6 +21,17 @@ function ShowApps() {
     }
 }
 
+function Hide(e) {
+    e.target.removeEventListener("animationend", Hide);
+    e.target.style.animationName = "";
+    e.target.style.display="none";
+}
+
+function Show(e) {
+    e.target.removeEventListener("animationend", Show);
+    e.target.style.animationName = "";
+}
+
 function PowerSwitch (icon_id, area_id, iframe_id) {
     ResetApps();
 
@@ -28,17 +39,24 @@ function PowerSwitch (icon_id, area_id, iframe_id) {
     var area = document.getElementById(area_id);
     var iframe = document.getElementById(iframe_id);
 
-    if (iframe.src != "/components/power/off") {
-        iframe.src = "/components/power_off";
-    }
+    iframe.src = "";
 
     if (is_power_on) {
         HideApps();
-        area.style.display = "none";
+        area.style.animationName = "light";
+        area.style.animationDuration = "0.4s";
+        area.style.animationDirection = "reverse";
+        area.style.animationPlayState = "running";
+        area.addEventListener("animationend", Hide);
         is_power_on = !is_power_on;
     } else {
         ShowApps();
+        area.style.animationName = "light";
+        area.style.animationDuration = "0.4s";
+        area.style.animationDirection = "normal";
         area.style.display = "inline";
+        area.style.animationPlayState = "running";
+        area.addEventListener("animationend", Show);
         is_power_on = !is_power_on;
     }
 }
