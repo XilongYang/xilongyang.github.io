@@ -16,9 +16,11 @@
         <link href="default.css" rel="stylesheet">
 
         <script src="/scripts/changeApp.js"></script>
+        <script src="/scripts/changePage.js"></script>
     </head>
-    <body>
-        <div class="page_container">
+    <body onkeyup="ChangePage(event)">
+        <div class="page_container" id="page_container" 
+        onwheel="QuickScrollListener(event)">
             <div id="page1" class="pages">
                 <div id="header">
                     <div id="occupation">Programer</div>
@@ -29,35 +31,23 @@
                         <span id="family_first">Y</span><span>ang</span>
                     </div>
                 </div>
-                <span id="down_arrow" class="material-icons">
-                        expand_more
-                </span>
+                <div class="down_arrow" id="page1_arrow" onclick="NextPage()">
+                    <span class="material-icons" id="page1_arrow_icon">
+                            expand_more
+                    </span>
+                </div>
             </div>
 
             <div id="page2" class="pages">
-                <div id="works">
-                    <div class="page_title">
-                        Works
-                    </div>
-                    <div class="page_contents">
-                        <a href="https://github.com/XilongYang/STAMP">STAMP-C++</a>
-                        <p>Simple Two-Way Active Measure Protocol (IETF RFC8762).</p>
-                        <a href="https://github.com/XilongYang/littledb">LittleDB </a>
-                        <p>A simple C++ library provides an embedded K-V database and some encrypt/decrypt concerned functions.</p>
-                    </div>
-                    <div class="page_contents" id="misc">
-                        <a href="https://github.com/XilongYang?tab=repositories">misc.</a>
-                    </div>
-                </div>
-                <div id="toys">
-                    <div class="page_title">
-                        Toys
-                    </div>
-                    <div class="page_contents" id="toys_area_border">
-                        <iframe id="toys_area">
-                        </iframe>
-                    </div>
-                    <div class="page_contents" id="toys_tray">
+                <div class="page_title">
+                    Works
+                    <div id="toys_tray">
+                        <div class="icons" id="power_off" title="View toys"
+                        onclick="PowerSwitch('power_off','toys','toys_area')">
+                            <span class="material-icons">
+                                play_arrow
+                            </span>
+                        </div>
                         <div class="icons apps" id="fe3os" title="Fe3OS"
                         onclick="ChangeApps('/components/Fe3OS', 'fe3os', 'toys_area')">
                             <span class="material-icons">
@@ -70,15 +60,25 @@
                                 album
                             </span>
                         </div>
-                        <div class="icons" id="power_off" onclick="PowerOff('power_off','toys_area')">
-                            <span class="material-icons">
-                                power_settings_new
-                            </span>
-                        </div>
                     </div>
-                    <div class="page_contents">
-                        There are some toys. To play with these toys you need to turn on the power first. Toys can be selected by tapping the app icon when the screen is on.
+                </div>
+                <div class="down_arrow" id="page2_arrow" onclick="NextPage()">
+                    <span class="material-icons" id="page2_arrow_icon">
+                            expand_more
+                    </span>
+                </div>
+                <div class="page_contents" id="works">
+                    <a href="https://github.com/XilongYang/STAMP">STAMP-C++</a>
+                    <p>Simple Two-Way Active Measure Protocol (IETF RFC8762).</p>
+                    <a href="https://github.com/XilongYang/littledb">LittleDB </a>
+                    <p>A simple C++ library provides an embedded K-V database and some encrypt/decrypt concerned functions.</p>
+                    <div id="misc">
+                        <a href="https://github.com/XilongYang?tab=repositories">misc.</a>
                     </div>
+                </div>
+                <div id="toys">
+                    <iframe id="toys_area">
+                    </iframe>
                 </div>
             </div> 
 

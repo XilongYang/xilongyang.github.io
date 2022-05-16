@@ -48,8 +48,6 @@ a:hover {
     width: 100%;
     height: 100vh;
     overflow-y: scroll;
-
-    scroll-snap-type: y mandatory;
 }
 
 .pages {
@@ -57,7 +55,6 @@ a:hover {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    scroll-snap-align: start;
     background-attachment: fixed;
 }
 
@@ -92,17 +89,16 @@ a:hover {
     margin-right: 5%;
 }
 
-#down_arrow{
+.down_arrow{
     position: relative;
-    top: 82%;
-    left: 70%;
 
     color: #c00;
-    font-size: 50px;
 
     transition-duration: 0.5s;
 
     animation: light 1.5s linear infinite alternate;
+
+    cursor: pointer;
 }
 
 
@@ -151,24 +147,37 @@ a:hover {
     color: #999;
 }
 
-#works {
-    float: left;
-    width: 50%;
+#page1_arrow {
+    top: 82%;
+    left: 70%;
+}
+
+#page1_arrow_icon {
+    font-size: 50px;
 }
 
 #misc {
     margin-top: 60px;
 }
 
-#toys {
-    float: left;
-    width: 50%;
-    height: 100%;
+#page2_arrow {
+    top: 70%;
+    left: 5%;
 }
 
-#toys_area_border {
-    width: 88%;
-    height: 60%;
+#page2_arrow_icon {
+    font-size: 40px;
+    margin-left: -10px;
+}
+
+
+#toys {
+    display: none;
+    position: absolute;
+    top: 5%;
+    right: 2%;
+    width: 40%;
+    height: 90%;
     border-top: 2px solid #c00;
     border-top-style: dashed;
     border-bottom: 2px solid #c00;
@@ -182,23 +191,23 @@ a:hover {
 }
 
 #toys_tray {
-    text-align: right;
-    margin-bottom: 15px;
-    width: 88%;
-    border-bottom: 2px solid #c00;
-    border-bottom-style: dashed;
-    line-height: 50%;
+    display: inline;
+    vertical-align: middle;
 }
 
 .icons {
     display: inline-block;
     vertical-align: bottom;
     cursor: pointer;
-    color: #333;
+    color: #c00;
+}
+
+.apps {
+    display: none;
 }
 
 .icons:hover {
-    color: #c00;
+    color: #c77;
 }
 
 @media screen and (max-width: 950px) {
@@ -249,7 +258,7 @@ a:hover {
         margin-top: auto;
     }
 
-    #toys {
+    #toys_tray {
         display: none;
     }
 
