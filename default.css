@@ -214,7 +214,7 @@ a:hover {
     .pages {
         height: auto;
     }
-    #down_arrow {
+    .down_arrow {
         display: none;
     }
 
