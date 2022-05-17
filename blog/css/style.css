@@ -1943,8 +1943,6 @@ pre .javascript .function {
   animation: icon-animate 1.2s ease-in-out infinite;
 }
 .paginator {
-  display: flex;
-  justify-content: space-between;
   font-size: 1rem;
   margin-top: 30px;
 }
@@ -1955,6 +1953,9 @@ pre .javascript .function {
   float: right;
 }
 .page_numbers {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 1rem;
   text-align: center;
 }

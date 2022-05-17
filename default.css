@@ -89,7 +89,7 @@ a:hover {
 }
 
 .down_arrow{
-    position: relative;
+    position: absolute;
 
     color: #c00;
 
@@ -103,12 +103,12 @@ a:hover {
 
 #header {
     display: grid;
-    position: relative;
-    width: 30%;
-    height: 10%;
+    position: absolute;
 
-    top: 75%;
-    left: 55%;
+    top: 90%;
+    left: 90%;
+
+    transform: translate(-100%, -100%);
     text-align: right;
 }
 
@@ -147,7 +147,7 @@ a:hover {
 }
 
 #page1_arrow {
-    top: 82%;
+    top: 92%;
     left: 70%;
 }
 
@@ -160,7 +160,7 @@ a:hover {
 }
 
 #page2_arrow {
-    top: 70%;
+    top: 90%;
     left: 5%;
 }
 
@@ -212,7 +212,7 @@ a:hover {
     color: #c77;
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 950px), screen and (max-height: 450px) {
     .pages {
         height: auto;
     }
@@ -221,6 +221,8 @@ a:hover {
     }
 
     #header {
+        position: relative;
+        transform: none;
         width: 200px;
         height: 60px;
         margin: auto;
