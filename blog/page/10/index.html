@@ -509,8 +509,8 @@
            href="/blog/page/9/"
         >Prev</a>
     
-    <div class="page_numbers">
-        <a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/8/">8</a><a class="page-number" href="/blog/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/blog/page/11/">11</a><a class="page-number" href="/blog/page/12/">12</a>
+    <div class="page-numbers">
+        <input class="page-number-input" value='10' min="1" max="12" onchange="PageChanged(event)"> / 12
     </div>
     
         <a class="next btn"
@@ -651,6 +651,8 @@
 <script src="/blog/js/back2top.js"></script>
 
 <script src="/blog/js/dark-light-toggle.js"></script>
+
+<script src="/blog/js/page-changed.js"></script>
 
 
 
