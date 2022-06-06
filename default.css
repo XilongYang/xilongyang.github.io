@@ -1,289 +1,183 @@
-body{
-    margin: auto;
-    font-family: sans-serif;
-    font-size: 20px;
-    text-align: left;
-    background-color: #fafafa;
-    min-width: 280px;
+body {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    margin: 0;    
 }
 
 a {
-    color: #c00;
-    text-decoration: none;
+    font-weight: bold;
+    color: black;
 }
 
 a:hover {
-    color: #a22;
+    color: #c00;
 }
 
-::-webkit-scrollbar{
-    width: 3px;
-    height: 3px;
-    background-color: #fff;
+p {
+    margin-bottom: 4px;
+    margin-top: 4px;
 }
 
-::-webkit-scrollbar-corner{
-    background-color: #ddd;
+.mobile_header {
+    display: none;
 }
 
-::-webkit-scrollbar-thumb{
-    background-color: #c00;
+.content {
+    margin: auto;
+    width: 85%;
+    height: 47.82vw; 
+    background-image: url(/res/bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: 0 0 5px 5px #666;
 }
- 
-@keyframes light
-{
-    from {opacity:0.2;}
-    to {opacity:1;}
-}
- 
-/*Safari 和 Chrome:*/
-@-webkit-keyframes light
-{
-    from {opacity:0.2;}
-    to {opacity:1;}
-}
- 
-.page_container {
+
+.text {
+    font-size: 18px;
+    height: 0px;
     position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow-y: scroll;
 }
 
-.pages {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-attachment: fixed;
-}
-
-#page1 {
-    background-image: url("/res/circuit.png");
-    background-repeat: repeat;
-}
-
-#page2 {
-    background-image: url("/res/jigsaw.png");
-    background-repeat: repeat;
-}
-
-#page3 {
-    background-image: url("/res/temple.png");
-    background-repeat: repeat;
-}
-
-.page_title {
-    font-size: 30px;
-    font-weight: bold;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-bottom: 30px;
-    margin-top: 30px;
-}
-
-.page_contents {
-    max-width: 18cm;
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
-.down_arrow{
-    position: absolute;
-
-    color: #c00;
-
-    transition-duration: 0.5s;
-
-    animation: light 1.5s linear infinite alternate;
-
-    cursor: pointer;
-}
-
-
-#header {
-    display: grid;
-    position: absolute;
-
-    top: 90%;
-    left: 90%;
-
-    transform: translate(-100%, -100%);
-    text-align: right;
-}
-
-#name,#family {
-    font-size: 100px;
-    font-family: 'Poiret One', sans-serif;
-    line-height: 80%;
-}
-
-#name {
-    grid-row: 2;
-    grid-column: 1;
-}
-
-#name_first {
-    color: #c00;
-}
-
-#family {
-    grid-row: 2;
-    grid-column: 2;
-}
-
-#family_first{
-    color: #c00;
-}
-
-
-#occupation {
-    grid-row: 1;
-    grid-column: 2;
+.title {
     font-size: 24px;
-    padding-right: 5px;
-    line-height: 0px;
-    color: #999;
+    font-weight: bold;
+    margin-bottom: 30px;
 }
 
-#page1_arrow {
-    top: 92%;
-    left: 70%;
-}
-
-#page1_arrow_icon {
-    font-size: 50px;
+#works {
+    left: 76%;
+    width: 22%;
 }
 
 #misc {
-    margin-top: 60px;
+    margin-top: 100px;
 }
 
-#page2_arrow {
-    top: 90%;
+#friends {
+    left: 76%;
+    top: 85%;
+    width: 22%;
+}
+
+#about {
+    top: 70%;
     left: 5%;
+    width: 30%;
 }
 
-#page2_arrow_icon {
-    font-size: 40px;
-    margin-left: -10px;
+#links {
+    top: 68%;
+    transform-origin: top left;
+    transform: rotate(-52.5deg);
 }
 
 
-#toys {
-    display: none;
-    position: absolute;
-    top: 5%;
-    right: 2%;
-    width: 40%;
-    height: 90%;
-    border-top: 2px solid #c00;
-    border-top-style: dashed;
-    border-bottom: 2px solid #c00;
-    border-bottom-style: dashed;
-
-    background-color: #f0f0f0;
-    background-image: url("/res/texture.png");
+@media screen and (min-width: 1700px) {
+    .text {
+        font-size: 24px;
+    }
+    .title {
+        font-size: 30px;
+        margin-bottom: 35px;
+    }
 }
 
-#toys_area {
-    width: 100%;
-    height: 100%;
-    border: none;
+@media screen and (min-width: 2300px) {
+    .text {
+        font-size: 30px;
+    }
+    .title {
+        font-size: 40px;
+        margin-bottom: 40px;
+    }
 }
 
-#toys_tray {
-    display: inline;
-    vertical-align: middle;
+@media screen and (max-width: 1200px) {
+    .text {
+        font-size: 14px;
+    }
+    .title {
+        margin-bottom: 15px;
+    }
 }
 
-.icons {
-    display: inline-block;
-    vertical-align: bottom;
-    cursor: pointer;
-    color: #c00;
-}
-
-.apps {
-    display: none;
-}
-
-.icons:hover {
-    color: #c77;
+@media screen and (max-width: 1100px) {
+    .title {
+        margin-bottom: 5px;
+    }
 }
 
 @media screen and (max-width: 950px), screen and (max-height: 450px) {
-    .pages {
-        height: auto;
-    }
-    .down_arrow {
-        display: none;
+    body {
+        display: inline;
     }
 
-    #header {
-        position: relative;
-        transform: none;
-        width: 200px;
-        height: 60px;
+    p {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .mobile_header {
+        display:block;
+        width: 100%;
+        font-family: 'Poiret One', sans-serif;
+        font-size: 35px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 200%;
+        border-width: 3px;
+        border-style: solid;
+        border-color: black;
+    }
+
+
+    .content {
         margin: auto;
-        margin-bottom: 40px;
-        top: 20px;
-        left: 0px;
+        margin-top: 40px;
+        width: 90%;
+        height: auto; 
+        background-image: none;
+        box-shadow: none;
     }
 
-    #name {
-        grid-row: 1;
-        grid-column: 1;
-        font-size: 42px;
-        line-height: 100%;
+    .text {
+        font-size: 20px;
+        height: auto;
+        position: static;
+        margin-bottom: 30px;
     }
 
-    #family {
-        grid-row: 1;
-        grid-column: 2;
-        font-size: 42px;
-        line-height: 100%;
-    }
-
-    #occupation {
-        grid-row: 2;
-        grid-column: 2;
-        line-height: 100%;
-        text-align: left;
-        font-size: 16px;
-        padding-left: 2px;
+    .title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        margin-top: 30px;
     }
 
     #works {
-        width: auto;
+        left: 0;
+        width: 100%;
     }
 
     #misc {
-        margin-top: auto;
+        margin-top: 0px;
     }
 
-    #toys_tray {
-        display: none;
+    #friends {
+        left: 0%;
+        top: 0%;
+        width: 100%;
     }
 
-    .page_container {
-        height: auto;
+    #about {
+        top: 0%;
+        left: 0%;
+        width: 100%;
     }
 
-    #page1 {
-        position: fixed;
-        border-bottom: 1px solid #c00;
-        background-color: #fafafa;
-        z-index: 200;
+    #links {
+        top: 0%;
+        transform: none;
     }
-
-    #page2 {
-        margin-top: 100px;
-    }
-
-    #page2,#page3,#page4 {
-        background-image: none;
-    }
-
-
 }

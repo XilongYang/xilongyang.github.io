@@ -18,95 +18,44 @@
         <script src="/scripts/changeApp.js"></script>
         <script src="/scripts/changePage.js"></script>
     </head>
-    <body onkeyup="ChangePage(event)">
-        <div class="page_container" id="page_container" 
-        onwheel="QuickScrollListener(event)">
-            <div id="page1" class="pages">
-                <div id="header">
-                    <div id="occupation">Programer</div>
-                    <div id="name">
-                        <span id="name_first">X</span><span>ilong</span>
-                    </div>
-                    <div id="family">
-                        <span id="family_first">Y</span><span>ang</span>
-                    </div>
+    <body>
+        <div class="content">
+            <div class="mobile_header">
+                Xilong Yang
+            </div>
+            <div class="text" id="works">
+                <div class="title">
+                    Works
                 </div>
-                <div class="down_arrow" id="page1_arrow" onclick="NextPage()">
-                    <span class="material-icons" id="page1_arrow_icon">
-                            expand_more
-                    </span>
+                <a href="https://github.com/XilongYang/STAMP">STAMP-C++</a>
+                <p>Simple Two-Way Active Measure Protocol (IETF RFC8762).</p>
+                <a href="https://github.com/XilongYang/littledb">LittleDB </a>
+                <p>A simple C++ library provides an embedded K-V database and some encrypt/decrypt concerned functions.</p>
+                <div id="misc">
+                    <a href="https://github.com/XilongYang?tab=repositories">misc.</a>
                 </div>
             </div>
-
-            <div id="page2" class="pages">
-                <div class="page_title">
-                    Works
-                    <div id="toys_tray">
-                        <div class="icons" id="power_off" title="View toys"
-                        onclick="PowerSwitch('power_off','toys','toys_area')">
-                            <span class="material-icons">
-                                play_arrow
-                            </span>
-                        </div>
-                        <div class="icons apps" id="fe3os" title="Fe3OS"
-                        onclick="ChangeApps('/components/Fe3OS', 'fe3os', 'toys_area')">
-                            <span class="material-icons">
-                                terminal
-                            </span>
-                        </div>
-                        <div class="icons apps" id="music_player" title="Music Player"
-                        onclick="ChangeApps('/components/musicplayer', 'music_player', 'toys_area')">
-                            <span class="material-icons">
-                                album
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="down_arrow" id="page2_arrow" onclick="NextPage()">
-                    <span class="material-icons" id="page2_arrow_icon">
-                            expand_more
-                    </span>
-                </div>
-                <div class="page_contents" id="works">
-                    <a href="https://github.com/XilongYang/STAMP">STAMP-C++</a>
-                    <p>Simple Two-Way Active Measure Protocol (IETF RFC8762).</p>
-                    <a href="https://github.com/XilongYang/littledb">LittleDB </a>
-                    <p>A simple C++ library provides an embedded K-V database and some encrypt/decrypt concerned functions.</p>
-                    <div id="misc">
-                        <a href="https://github.com/XilongYang?tab=repositories">misc.</a>
-                    </div>
-                </div>
-                <div id="toys">
-                    <iframe id="toys_area">
-                    </iframe>
-                </div>
-            </div> 
-
-            <div id="page3" class="pages">
-                <div class="page_title">
+            <div class="text" id="about">
+                <div class="title">
                     About
                 </div>
-                <div class="page_contents">
-                    <p id="intro">I'm a programer with 3 years of experience about C++ and Linux.  </p>
-                    <p id="intro_site">I maintain a <a href="https://github.com/XilongYang">github account</a> and <a href="/blog">blog</a>. </p>
-                    <p id="intro_email">You can contact me though <a href="mailto:xilong.yang@foxmail.com">xilong.yang@foxmail.com</a>
-                </div>
-                <div class="page_title">
+                <p id="intro">I'm a programer with 3 years of experience about C++ and Linux.  </p>
+                <p id="intro_site">I maintain a <a href="https://github.com/XilongYang">github account</a> and <a href="/blog">blog</a>. </p>
+                <p id="intro_email">You can contact me though <a href="mailto:xilong.yang@foxmail.com">xilong.yang@foxmail.com</a>
+            </div>
+            <div class="text" id="friends">
+                <div class="title">
                     Friends
                 </div>
-                <div class="page_contents">
-                    <a href="https://doerr33.github.io">Doeer's Blog</a>, 
-                    <a href="https://jingsong.site">Jingsong Xu</a><br>
-                </div>
-                <div class="page_title">
-                    Links
-                </div>
-                <div class="page_contents">
-                    <a href="/components/musicplayer/">Music Player</a>, 
-                    <a href="/components/Fe3OS/">Fe3OS</a>, 
-                    <a href="https://onedrive.xilong.site/">Xilong's Onedrive</a>, 
-                    <a href="/blog/">Xilong's Blog</a><br>
-                </div>
+                <a href="https://doerr33.github.io">Doeer's Blog</a>, 
+                <a href="https://jingsong.site">Jingsong Xu</a><br>
+            </div>
+            <div class="text" id="links">
+                Links:
+                <a href="/components/musicplayer/">Music</a>, 
+                <a href="/components/Fe3OS/">Fe3OS</a>, 
+                <a href="https://onedrive.xilong.site/">Onedrive</a>, 
+                <a href="/blog/">Blog</a><br>
             </div>
         </div>
     </body>
