@@ -116,10 +116,6 @@ p {
 }
 
 @media screen and (max-width: 1000px) {
-    body {
-        display: inline;
-    }
-
     p {
         margin-top: 10px;
         margin-bottom: 10px;
@@ -194,3 +190,13 @@ p {
         transform: none;
     }
 } 
+
+@media screen and (max-width: 1000px) and (min-height: 750px) {
+    body {
+        height: 100vh;
+    }
+
+    .mask {
+        height: 100vh;
+    }
+}
