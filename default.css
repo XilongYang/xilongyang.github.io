@@ -1,14 +1,13 @@
 body {
-    display: flex;
     font-family: sans-serif;
     width: 100%;
     height: 100vh;
     margin: 0;    
     background-image: url(/res/cloud.png);
-    background-color: #f0f0f0;
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 
 a {
     font-weight: bold;
@@ -20,29 +19,43 @@ a:hover {
 }
 
 p {
-    /* margin-bottom: 0.2vw; */
-    /* margin-top: 0.2vw; */
     margin-bottom: 4px;
     margin-top: 4px;
 }
 
+.mask {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: #fffe;
+}
+
+@media screen and (max-height: 562.6px) {
+    body {
+        height: auto;
+    }
+    .mask {
+        height: auto;
+    }
+}
+
 .content {
     margin: auto;
-    /* width: 85%; */
-    /* height: 47.82vw;  */
     width: 1000px;
     height: 562.6px;
+
     background-image: url(/res/name.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #fffe;
     box-shadow: 0 0 0.2vw 0.2vw #0006;
+    mix-blend-mode: normal;
 }
 @supports (backdrop-filter: blur(8px)) {
     .content {
-        background-color: #fffb;
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
+        background-color: unset;
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
     }
 }
 
@@ -102,10 +115,9 @@ p {
     transform: rotate(-52.5deg);
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 1000px) {
     body {
         display: inline;
-        background-image: none;
     }
 
     p {
@@ -115,7 +127,9 @@ p {
 
     .mobile_header {
         display:block;
-        width: 100%;
+        margin: auto;
+        margin-top: 30px;
+        width: 80%;
         font-family: 'Poiret One', sans-serif;
         font-size: 35px;
         font-weight: bold;
@@ -129,13 +143,11 @@ p {
 
     .content {
         margin: auto;
-        margin-top: 40px;
+        padding-left: 10px;
+        padding-right: 10px;
         width: 90%;
         height: auto; 
         background-image: none;
-        background-color: inherit;
-        backdrop-filter: none;
-        box-shadow: none;
     }
 
     #occupation {
@@ -181,4 +193,4 @@ p {
         top: 0%;
         transform: none;
     }
-}
+} 
