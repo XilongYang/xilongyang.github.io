@@ -15,53 +15,56 @@
         <link href='https://fonts.loli.net/css?family=Poiret+One' rel='stylesheet'>
         <link href="default.css" rel="stylesheet">
 
-        <script src="/scripts/changeApp.js"></script>
-        <script src="/scripts/changePage.js"></script>
+        <script src="/scripts/change_color.js"></script>
     </head>
     <body>
-        <div class="mask">
-            <div class="content" id="card1">
-                <div class="mobile_only" id="mobile_header">
-                    Xilong Yang
+        <div class="mask pc_only" id="color-mask">
+            <svg>
+                <circle id="circle"></circle>
+            </svg>
+        </div>
+        <div class="content" id="card1">
+            <div class="mobile_only" id="mobile_header">
+                Xilong Yang
+            </div>
+            <div class="text pc_only" id="occupation">
+                Programer
+            </div>
+            <div class="text" id="works">
+                <div class="title">
+                    Works
                 </div>
-                <div class="text pc_only" id="occupation">
-                    Programer
-                </div>
-                <div class="text" id="works">
-                    <div class="title">
-                        Works
-                    </div>
-                    <a href="https://github.com/XilongYang/STAMP">STAMP-C++</a>
-                    <p>Simple Two-Way Active Measure Protocol (IETF RFC8762).</p>
-                    <a href="https://github.com/XilongYang/littledb">LittleDB </a>
-                    <p>A simple C++ library provides an embedded K-V database and some encrypt/decrypt concerned functions.</p>
-                    <div id="misc">
-                        <a href="https://github.com/XilongYang?tab=repositories">misc.</a>
-                    </div>
-                </div>
-                <div class="text" id="about">
-                    <div class="title">
-                        About
-                    </div>
-                    <p id="intro">I'm a programer with 3 years of experience about C++ and Linux.  </p>
-                    <p id="intro_site">I maintain a <a href="https://github.com/XilongYang">github account</a> and <a href="/blog">blog</a>. </p>
-                    <p id="intro_email">You can contact me though <a href="mailto:xilong.yang@foxmail.com">xilong.yang@foxmail.com</a>
-                </div>
-                <div class="text" id="friends">
-                    <div class="title">
-                        Friends
-                    </div>
-                    <a href="https://doerr33.github.io">Doeer's Blog</a>, 
-                    <a href="https://jingsong.site">Jingsong Xu</a><br>
-                </div>
-                <div class="text" id="links">
-                    Links:
-                    <a href="/components/musicplayer/">Music</a>, 
-                    <a href="/components/Fe3OS/">Fe3OS</a>, 
-                    <a href="https://onedrive.xilong.site/">Onedrive</a>, 
-                    <a href="/blog/">Blog</a><br>
+                <a href="https://github.com/XilongYang/STAMP">STAMP-C++</a>
+                <p>Simple Two-Way Active Measure Protocol (IETF RFC8762).</p>
+                <a href="https://github.com/XilongYang/littledb">LittleDB </a>
+                <p>A simple C++ library provides an embedded K-V database and some encrypt/decrypt concerned functions.</p>
+                <div id="misc">
+                    <a href="https://github.com/XilongYang?tab=repositories">misc.</a>
                 </div>
             </div>
+            <div class="text" id="about">
+                <div class="title">
+                    About
+                </div>
+                <p id="intro">I'm a programer with 3 years of experience about C++ and Linux.  </p>
+                <p id="intro_site">I maintain a <a href="https://github.com/XilongYang">github account</a> and <a href="/blog">blog</a>. </p>
+                <p id="intro_email">You can contact me though <a href="mailto:xilong.yang@foxmail.com">xilong.yang@foxmail.com</a>
+            </div>
+            <div class="text" id="friends">
+                <div class="title">
+                    Friends
+                </div>
+                <a href="https://doerr33.github.io">Doeer's Blog</a>, 
+                <a href="https://jingsong.site">Jingsong Xu</a><br>
+            </div>
+            <div class="text" id="links">
+                Links:
+                <a href="/components/musicplayer/">Music</a>, 
+                <a href="/components/Fe3OS/">Fe3OS</a>, 
+                <a href="https://onedrive.xilong.site/">Onedrive</a>, 
+                <a href="/blog/">Blog</a><br>
+            </div>
+            <div class="pc_only" id="color-changer" onclick="ChangeColor()"></div>
         </div>
     </body>
 </html>

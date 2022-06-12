@@ -3,11 +3,19 @@ body {
     width: 100%;
     height: 100vh;
     margin: 0;    
+    display: flex;
     background-image: url(/res/cloud.png);
+    background-color: #fffe;
     background-repeat: no-repeat;
     background-size: cover;
+    background-blend-mode: screen;
 }
 
+svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
 
 a {
     font-weight: bold;
@@ -27,8 +35,41 @@ p {
     display: flex;
     width: 100%;
     height: 100%;
-    background-color: #fffe;
 }
+
+#color-mask {
+    position: fixed;
+    pointer-events: none;
+    width: 1000px;
+    height: 562.6px;
+    top: calc((100% - 562.6px) / 2);
+    left: calc((100% - 1000px) / 2);
+    overflow: hidden;
+    mix-blend-mode: lighten;
+    z-index: 100;
+}
+
+@keyframes change-color {
+    from {
+        r:0;
+    }
+    to {
+        r:900px;
+        stroke-width: 200px;
+    }
+}
+
+#circle {
+    cx: 350px;
+    cy: 140px;
+    r: 1000px;
+    stroke: white;
+    stroke-width: 20px;
+    stroke-opacity: 0.8;
+    animation-duration: 3s;
+    z-index: 100;
+}
+
 
 @media screen and (max-height: 562.6px) {
     body {
@@ -49,7 +90,6 @@ p {
     background-size: cover;
     background-color: #fffe;
     box-shadow: 0 0 0.2vw 0.2vw #0006;
-    mix-blend-mode: normal;
 }
 @supports (backdrop-filter: blur(8px)) {
     .content {
@@ -83,7 +123,7 @@ p {
     top: 15%;
     left: 48%;
     font-size: 42px;
-    color: #0007;
+    color: #000a;
 }
 
 #works {
@@ -113,6 +153,19 @@ p {
     top: 68%;
     transform-origin: top left;
     transform: rotate(-52.5deg);
+}
+
+#color-changer {
+    position: relative;
+    width: 16px;
+    height: 21px;
+    top: 128.5px;
+    left: 342.5px;
+}
+
+#color-changer:hover {
+    background-color: #c00;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 1000px) {
