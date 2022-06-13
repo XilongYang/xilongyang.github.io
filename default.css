@@ -166,6 +166,8 @@ p {
     body {
         height: auto;
         background-position: 30%;
+        background-image: none;
+        background-color: #f0f0f0;
     }
 
     p {
@@ -205,8 +207,7 @@ p {
         text-align: center;
 
         box-shadow: 0 0 2px 2px #0006;
-        background-color: #fff3;
-        backdrop-filter: blur(2px);
+        background-color: #fffa;
     }
 
     .text {
@@ -223,8 +224,7 @@ p {
         font-size: 20px;
 
         box-shadow: 0 0 2px 2px #0006;
-        background-color: #fff3;
-        backdrop-filter: blur(4px);
+        background-color: #fffa;
     }
 
     .title {
