@@ -4,10 +4,9 @@ body {
     height: 100vh;
     margin: 0;    
     display: flex;
-    background-image: url(/res/cloud.png);
-    background-color: #fffe;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-image: url(/res/shattered-island.gif);
+    background-repeat: repeat;
+    background-size: contain;
     background-blend-mode: screen;
 }
 
@@ -44,6 +43,7 @@ p {
     height: 562.6px;
     top: calc((100% - 562.6px) / 2);
     left: calc((100% - 1000px) / 2);
+    border-radius: 5px;
     overflow: hidden;
     mix-blend-mode: lighten;
     z-index: 100;
@@ -62,10 +62,10 @@ p {
 #circle {
     cx: 350px;
     cy: 140px;
-    r: 1000px;
-    stroke: white;
+    r: 0px;
+    stroke: #f0f0f0;
     stroke-width: 20px;
-    stroke-opacity: 0.8;
+    stroke-opacity: 0.2;
     animation-duration: 3s;
     z-index: 100;
 }
@@ -85,18 +85,11 @@ p {
     width: 1000px;
     height: 562.6px;
 
-    background-image: url(/res/name.png);
+    background-image: url(/res/name.png), url(/res/bg.png);
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: #fffe;
-    box-shadow: 0 0 0.2vw 0.2vw #0006;
-}
-@supports (backdrop-filter: blur(8px)) {
-    .content {
-        background-color: unset;
-        backdrop-filter: blur(3px);
-        -webkit-backdrop-filter: blur(3px);
-    }
+    box-shadow: 3px 3px 2px 2px #000a, 1px 1px 1px 1px #fffa inset;
+    border-radius: 5px;
 }
 
 .mobile_only {
@@ -128,6 +121,7 @@ p {
 
 #works {
     left: 76%;
+    top: 1%;
     width: 22%;
 }
 
