@@ -9,7 +9,7 @@
     
     <title>
         
-            二叉树的层序遍历 |
+            使用OneDrive作为Typora图床 |
         
         Xilong&#39;s Blog
     </title>
@@ -163,7 +163,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">二叉树的层序遍历</span>
+            <span class="title-hover-animation">使用OneDrive作为Typora图床</span>
         </div>
 
         
@@ -177,8 +177,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2021-07-18 01:36:29</span>
-        <span class="mobile">2021-07-18 01:36</span>
+        <span class="pc">2022-06-17 00:00:00</span>
+        <span class="mobile">2022-06-17 00:00</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -186,7 +186,7 @@
             <ul>
                 
                     <li>
-                        <a href="/blog/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/">数据结构和算法</a>&nbsp;
+                        <a href="/blog/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%AE%B0/">技术杂记</a>&nbsp;
                     </li>
                 
             </ul>
@@ -198,15 +198,7 @@
             <ul>
                 
                     <li>
-                        <a href="/blog/tags/C/">C++</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/blog/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/blog/tags/Haskell/">Haskell</a>&nbsp;
+                        <a href="/blog/tags/Linux/">Linux</a>&nbsp;
                     </li>
                 
             </ul>
@@ -216,12 +208,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>376 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>634 Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>1 Mins</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>2 Mins</span>
         </span>
     
     
@@ -234,18 +226,27 @@
 
         <div class="article-content markdown-body">
             <blockquote>
-<p>对之前的文章：<a class="link"   target="_blank" rel="noopener" href="https://blog.xilong.site/2020/04/24/0004-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84%E5%8F%8A%E5%85%B6%E9%9D%9E%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" >二叉树的存储结构及其非层序遍历<i class="fas fa-external-link-alt"></i></a>的一点小补充。</p>
+<p>网络环境越来越差了，之前使用picgo+github作为图床的方案已经几乎不可用了。经过一番折腾，发现了使用PoweredBy.Cloud + OneDrive的方案。</p>
 </blockquote>
 <span id="more"></span>
-<h2 id="原理">原理</h2>
-<p>使用一个队列来对每个节点进行<code>入队-加入子节点-访问-出队</code>的操作即可，非常简单。</p>
-<p>伪码表示：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输入：待访问的二叉树Tree</span><br><span class="line">输出：对节点的层序访问</span><br><span class="line">View:</span><br><span class="line">  queue.push Tree</span><br><span class="line">  while !queue.empty:</span><br><span class="line">    if (Tree.left) queue.push Tree.left</span><br><span class="line">    if (Tree.right) queue.push Tree.right</span><br><span class="line">    Tree.show</span><br><span class="line">    queue.pop</span><br></pre></td></tr></table></figure>
-<h2 id="c实现">C++实现</h2>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 简单实现一个二叉树</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Tree</span> &#123;</span><br><span class="line">    <span class="built_in">Tree</span>() : <span class="built_in">left</span>(<span class="literal">nullptr</span>), <span class="built_in">data</span>(<span class="number">0</span>), <span class="built_in">right</span>(<span class="literal">nullptr</span>) &#123;&#125;</span><br><span class="line">    Tree *left;</span><br><span class="line">    <span class="type">char</span> data;</span><br><span class="line">    Tree *right;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 层序遍历</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">View</span><span class="params">(<span class="type">const</span> Tree &amp;T)</span> </span>&#123;</span><br><span class="line">    queue&lt;Tree&gt; nodeQueue;</span><br><span class="line">    nodeQueue.<span class="built_in">push</span>(T);</span><br><span class="line">    <span class="keyword">while</span> (!nodeQueue.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="keyword">auto</span> cur = nodeQueue.<span class="built_in">front</span>();</span><br><span class="line">        <span class="keyword">if</span> (cur.left) nodeQueue.<span class="built_in">push</span>(*cur.left);</span><br><span class="line">        <span class="keyword">if</span> (cur.right) nodeQueue.<span class="built_in">push</span>(*cur.right);</span><br><span class="line">        nodeQueue.<span class="built_in">pop</span>();</span><br><span class="line">        cout &lt;&lt; cur.data;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="haskell实现">Haskell实现</h2>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 二叉树</span></span><br><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">Tree</span> = <span class="type">Empty</span> | <span class="type">Node</span> <span class="type">Tree</span> <span class="type">String</span> <span class="type">Tree</span></span></span><br><span class="line">  <span class="keyword">deriving</span> (<span class="type">Eq</span>, <span class="type">Show</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 将树转变为层序遍历序列</span></span><br><span class="line"><span class="title">view</span> :: <span class="type">Tree</span> -&gt; <span class="type">String</span></span><br><span class="line"><span class="title">view</span> = view&#x27;.view&#x27;&#x27;</span><br><span class="line">    <span class="keyword">where</span></span><br><span class="line">    <span class="comment">-- 将一个树的列表转变为对应的值的列表</span></span><br><span class="line">    view&#x27; :: [<span class="type">Tree</span>] -&gt; <span class="type">String</span></span><br><span class="line">    view&#x27; [] = <span class="string">&quot;&quot;</span></span><br><span class="line">    view&#x27; ((<span class="type">Node</span> _ str _):xs) = str ++ view&#x27; xs</span><br><span class="line">    <span class="comment">-- 将一个树转变为其层序遍历的列表</span></span><br><span class="line">    view&#x27;&#x27; :: <span class="type">Tree</span> -&gt; [<span class="type">Tree</span>]</span><br><span class="line">    view&#x27;&#x27; <span class="type">Empty</span> = []</span><br><span class="line">    view&#x27;&#x27; t = extend [t] <span class="number">0</span></span><br><span class="line">        <span class="keyword">where</span></span><br><span class="line">        extend :: [<span class="type">Tree</span>] -&gt; <span class="type">Int</span> -&gt; [<span class="type">Tree</span>]</span><br><span class="line">        extend ts n = <span class="keyword">if</span>(n &gt;= length ts) <span class="keyword">then</span> ts</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">case</span> (ts!!n) <span class="keyword">of</span></span><br><span class="line">                (<span class="type">Node</span> left _ right) -&gt; extend (ts </span><br><span class="line">                    ++ (<span class="keyword">if</span> (left == <span class="type">Empty</span>) <span class="keyword">then</span> [] <span class="keyword">else</span> [left]) </span><br><span class="line">                    ++ (<span class="keyword">if</span> (right == <span class="type">Empty</span>) <span class="keyword">then</span> [] <span class="keyword">else</span> [right])) </span><br><span class="line">                    (n + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p>Haskell学艺不精，写得挺丑，留待日后优化吧。</p>
+<h2 id="poweredby.cloud">PoweredBy.Cloud</h2>
+<p><a class="link"   target="_blank" rel="noopener" href="https://poweredby.cloud/" >PoweredBy.Cloud<i class="fas fa-external-link-alt"></i></a>能将OneDrive或GoogleDrive转变为一个兼容S3 API的CDN。简单说就是可以使用OneDrive或GoogleDrive中的一个文件夹来作为存储空间，并生成这个空间内的文件的外链。这样就可以实现将OneDrive作为图床使用的目的了。</p>
+<p>使用PoweredBy.Cloud很简单，只要先进入官网：<a class="link"   target="_blank" rel="noopener" href="https://poweredby.cloud/" >https://poweredby.cloud/<i class="fas fa-external-link-alt"></i></a>，并使用邮箱注册一个账号。再通过<code>Dashboard -&gt; ADD SITE</code>来添加一个域名即可：</p>
+<p><img src="https://xilong.stdcdn.com/20220617/035035image-20220617035035003.png" /></p>
+<p>添加好域名后，还需要通过<code>Dashboard -&gt; Developer -&gt; CREATE ACCESS KEY</code>来创建一个资源访问Token。之后就可以使用这个Token来进行资源管理了。</p>
+<h2 id="aws-cli">AWS CLI</h2>
+<p>可以通过S3 API对PoweredBy.Cloud中的资源进行管理，详见<a class="link"   target="_blank" rel="noopener" href="https://github.com/PoweredByCloud/PoweredByCloud/blob/main/s3_compatible_api.md" >官方文档<i class="fas fa-external-link-alt"></i></a>。这里我们选用AWS CLI。</p>
+<p>通过官方文档的指示对AWS CLI进行安装与配置后，我们应该可以使用命令来上传文件了：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws --endpoint-url https://stdcdn.com s3 test.png s3://demo/test.png</span><br></pre></td></tr></table></figure>
+<p>到这里，我们就有了使用OneDrive作为图床的基础了。接下来只要为Typora编写一个上传脚本即可。</p>
+<h2 id="typora图片上传脚本编写">Typora图片上传脚本编写</h2>
+<p>Typora的图片上传功能支持自定义脚本，脚本需要满足两个条件：</p>
+<ol type="1">
+<li>输入参数为多个表示图片路径的字符串。</li>
+<li>输出为多个网址，依序表示图像上传后的URL。</li>
+</ol>
+<p>编写脚本如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">! /usr/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">参数小于1个时，提示用法</span></span><br><span class="line">if [ $# -lt 1 ]</span><br><span class="line">then</span><br><span class="line">    echo &quot;Usage: upload_img.sh path_to_image&quot;</span><br><span class="line">    exit -1</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">aws使用需要代理，下面代理设置可根据自己的配置更改</span></span><br><span class="line">export no_proxy=&quot;localhost,127.0.0.1,localaddress,.localdomai.com&quot;</span><br><span class="line">export http_proxy=&quot;http://127.0.0.1:7890&quot;</span><br><span class="line">export https_proxy=&quot;http://127.0.0.1:7890&quot;</span><br><span class="line">export HTTP_PROXY=&quot;http://127.0.0.1:7890&quot;</span><br><span class="line">export HTTPS_PROXY=&quot;http://127.0.0.1:7890&quot;</span><br><span class="line"></span><br><span class="line">for i in &quot;$@&quot; </span><br><span class="line">do</span><br><span class="line">    date=$(date +&#x27;%Y%m%d&#x27;)</span><br><span class="line">    time=$(date +&#x27;%H%M%S&#x27;)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">文件名为当前时间+原始文件名</span></span><br><span class="line">    file_name=$&#123;time&#125;$&#123;i##*/&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">将aws命令的输出保存在变量中，并判断其是否成功执行</span></span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">以当前日期作为文件的保存路径</span></span><br><span class="line">    output=$(aws --endpoint-url https://stdcdn.com s3 cp $i s3://xilong/$date/$file_name)</span><br><span class="line">    result=$(echo $?)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">若上传成功，输出文件URL；否则输出aws输出信息；</span></span><br><span class="line">    if [ $result == 0 ]</span><br><span class="line">    then</span><br><span class="line">        echo &quot;https://demo.stdcdn.com/$date/$file_name&quot;</span><br><span class="line">    else</span><br><span class="line">        echo $output</span><br><span class="line">    fi</span><br><span class="line">done</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
         </div>
 
@@ -254,11 +255,11 @@
                 
 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：二叉树的层序遍历</li>
+        <li>Post title：使用OneDrive作为Typora图床</li>
         <li>Post author：Xilong Yang</li>
-        <li>Create time：2021-07-18 01:36:29</li>
+        <li>Create time：2022-06-17 00:00:00</li>
         <li>
-            Post link：https://xilong.site/blog/2021/07/18/0017-Binary_tree:Level_order_traversal/
+            Post link：https://xilong.site/blog/2022/06/17/0038-OnedriveToImghost/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -274,15 +275,7 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/blog/tags/C/">#C++</a>&nbsp;
-                    </li>
-                
-                    <li class="tag-item">
-                        <a href="/blog/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">#二叉树</a>&nbsp;
-                    </li>
-                
-                    <li class="tag-item">
-                        <a href="/blog/tags/Haskell/">#Haskell</a>&nbsp;
+                        <a href="/blog/tags/Linux/">#Linux</a>&nbsp;
                     </li>
                 
             </ul>
@@ -291,29 +284,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/blog/2021/07/18/0018-C++:The_rule_of_three_five/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">C++三/五法则</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/blog/2021/07/18/L014-%E8%BF%87%E4%B8%8E%E6%8C%82%E7%9A%84%E8%BE%B9%E7%BC%98/"
+                           href="/blog/2022/06/12/0037-Debian_11_JACK/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">过与挂的边缘</span>
+                                <span class="post-nav-title-item">Debian 11 安装JACK2</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -429,7 +407,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c%E5%AE%9E%E7%8E%B0"><span class="nav-text">C++实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#haskell%E5%AE%9E%E7%8E%B0"><span class="nav-text">Haskell实现</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#poweredby.cloud"><span class="nav-text">PoweredBy.Cloud</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#aws-cli"><span class="nav-text">AWS CLI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#typora%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99"><span class="nav-text">Typora图片上传脚本编写</span></a></li></ol>
     </div>
 </div>
         </aside>

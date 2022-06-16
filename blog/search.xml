@@ -8657,4 +8657,37 @@
         <tag>English</tag>
       </tags>
   </entry>
+  <entry>
+    <title>使用OneDrive作为Typora图床</title>
+    <url>/blog/2022/06/17/0038-OnedriveToImghost/</url>
+    <content><![CDATA[<blockquote>
+<p>网络环境越来越差了，之前使用picgo+github作为图床的方案已经几乎不可用了。经过一番折腾，发现了使用PoweredBy.Cloud + OneDrive的方案。</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="poweredby.cloud">PoweredBy.Cloud</h2>
+<p><a class="link"   href="https://poweredby.cloud/" >PoweredBy.Cloud<i class="fas fa-external-link-alt"></i></a>能将OneDrive或GoogleDrive转变为一个兼容S3 API的CDN。简单说就是可以使用OneDrive或GoogleDrive中的一个文件夹来作为存储空间，并生成这个空间内的文件的外链。这样就可以实现将OneDrive作为图床使用的目的了。</p>
+<p>使用PoweredBy.Cloud很简单，只要先进入官网：<a class="link"   href="https://poweredby.cloud/" >https://poweredby.cloud/<i class="fas fa-external-link-alt"></i></a>，并使用邮箱注册一个账号。再通过<code>Dashboard -&gt; ADD SITE</code>来添加一个域名即可：</p>
+<p><img src="https://xilong.stdcdn.com/20220617/035035image-20220617035035003.png" /></p>
+<p>添加好域名后，还需要通过<code>Dashboard -&gt; Developer -&gt; CREATE ACCESS KEY</code>来创建一个资源访问Token。之后就可以使用这个Token来进行资源管理了。</p>
+<h2 id="aws-cli">AWS CLI</h2>
+<p>可以通过S3 API对PoweredBy.Cloud中的资源进行管理，详见<a class="link"   href="https://github.com/PoweredByCloud/PoweredByCloud/blob/main/s3_compatible_api.md" >官方文档<i class="fas fa-external-link-alt"></i></a>。这里我们选用AWS CLI。</p>
+<p>通过官方文档的指示对AWS CLI进行安装与配置后，我们应该可以使用命令来上传文件了：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">aws --endpoint-url https://stdcdn.com s3 test.png s3://demo/test.png</span><br></pre></td></tr></table></figure>
+<p>到这里，我们就有了使用OneDrive作为图床的基础了。接下来只要为Typora编写一个上传脚本即可。</p>
+<h2 id="typora图片上传脚本编写">Typora图片上传脚本编写</h2>
+<p>Typora的图片上传功能支持自定义脚本，脚本需要满足两个条件：</p>
+<ol type="1">
+<li>输入参数为多个表示图片路径的字符串。</li>
+<li>输出为多个网址，依序表示图像上传后的URL。</li>
+</ol>
+<p>编写脚本如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">! /usr/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">参数小于1个时，提示用法</span></span><br><span class="line">if [ $# -lt 1 ]</span><br><span class="line">then</span><br><span class="line">    echo &quot;Usage: upload_img.sh path_to_image&quot;</span><br><span class="line">    exit -1</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">aws使用需要代理，下面代理设置可根据自己的配置更改</span></span><br><span class="line">export no_proxy=&quot;localhost,127.0.0.1,localaddress,.localdomai.com&quot;</span><br><span class="line">export http_proxy=&quot;http://127.0.0.1:7890&quot;</span><br><span class="line">export https_proxy=&quot;http://127.0.0.1:7890&quot;</span><br><span class="line">export HTTP_PROXY=&quot;http://127.0.0.1:7890&quot;</span><br><span class="line">export HTTPS_PROXY=&quot;http://127.0.0.1:7890&quot;</span><br><span class="line"></span><br><span class="line">for i in &quot;$@&quot; </span><br><span class="line">do</span><br><span class="line">    date=$(date +&#x27;%Y%m%d&#x27;)</span><br><span class="line">    time=$(date +&#x27;%H%M%S&#x27;)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">文件名为当前时间+原始文件名</span></span><br><span class="line">    file_name=$&#123;time&#125;$&#123;i##*/&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">将aws命令的输出保存在变量中，并判断其是否成功执行</span></span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">以当前日期作为文件的保存路径</span></span><br><span class="line">    output=$(aws --endpoint-url https://stdcdn.com s3 cp $i s3://xilong/$date/$file_name)</span><br><span class="line">    result=$(echo $?)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">若上传成功，输出文件URL；否则输出aws输出信息；</span></span><br><span class="line">    if [ $result == 0 ]</span><br><span class="line">    then</span><br><span class="line">        echo &quot;https://demo.stdcdn.com/$date/$file_name&quot;</span><br><span class="line">    else</span><br><span class="line">        echo $output</span><br><span class="line">    fi</span><br><span class="line">done</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>技术杂记</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
 </search>
