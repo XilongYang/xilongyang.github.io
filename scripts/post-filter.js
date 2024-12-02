@@ -24,14 +24,20 @@ const pl     = [ST.INIT, ST.NORMAL  , EMP_FIELD, ST.NOT   , ST.PL           , EM
 const pr     = [ST.INIT, OPT_MISS   , ST.AND_OR, OPT_MISS , OPT_MISS        , ST.PR            , ST.ESC   ]
 const esc    = [ST.INIT, INVALID_ESC, ST.NORMAL, ST.NORMAL, ST.NORMAL       , ST.NORMAL        , ST.NORMAL]
 
-class JudgeNode {
-    exp;
-    successNext;
-    failureNext;
+class BooleanWarpper {
+    value
+    constructor(value) {
+        this.value = value
+    }
+}
+class MatchNode {
+    exp
+    successNext
+    failureNext
     constructor() {
         this.exp = ""
-        this.successNext = true
-        this.failureNext = false
+        this.successNext = new BooleanWarpper(true)
+        this.failureNext = new BooleanWarpper(false)
     }
 }
 
@@ -90,9 +96,17 @@ function clearErrorMsg() {
 
 function refreshFilter() {
     var input = document.getElementById("post-filter-input")
-    var exp = input.innerText.replace("\n", "")
+    var exp = input.innerText.replace("\n", "").trim()
     if (exp == "") {
         input.innerHTML = ""
+        var postYears = document.getElementsByClassName('post-year-wrapper')
+        for (var postYear of postYears) {
+            var posts = postYear.getElementsByClassName('post-wrapper')
+            for (var post of posts) {
+                post.style.display = 'block'
+            }
+            postYear.style.display = 'block'
+        }
         return
     }
 
@@ -102,15 +116,21 @@ function refreshFilter() {
 
     var matchTree = expressionParse(exp)
 
+    var postYears = document.getElementsByClassName('post-year-wrapper')
+    for (var postYear of postYears) {
+        var atLeastOne = false
+        var posts = postYear.getElementsByClassName('post-wrapper')
+        for (var post of posts) {
+            var isSuccess = expressionMatch(matchTree, post.innerText)
+            atLeastOne = atLeastOne || isSuccess
+            post.style.display = isSuccess ? 'block' : 'none'
+        }
+        postYear.style.display = atLeastOne ? 'block' : 'none'
+    }
 
 }
 
 function expressionValidate(exp) {
-    exp = exp.trim()
-    if (exp == "") {
-        return false
-    }
-
     var states = [init, normal, andOr, not, pl, pr, esc]
     var curST = ST.INIT
 
@@ -171,9 +191,84 @@ function expressionValidate(exp) {
 }
 
 function expressionParse(exp) {
-    exp = exp.trim()
+    var stack      = []
+    var head       = new MatchNode()
+    var cur        = head
+    var curSucess  = cur.successNext
+    var curFailure = cur.failureNext
 
+    for (var i = 0; i < exp.length; ++i) {
+        var c = exp[i]
+        switch (c) {
+            case "&":
+                var next = new MatchNode()
+                next.failureNext = cur.failureNext
+                cur.successNext = next
+                cur = next
+                break;
+            case "|":
+                var next = new MatchNode()
+                next.successNext = cur.successNext
+                cur.failureNext = next
+                cur = next
+                break
+            case "~":
+                curSucess.value  = !curSucess.value
+                curFailure.value = !curFailure.value
+                break
+            case "(":
+                stack.push([head, cur, curSucess, curFailure])
+                head = new MatchNode()
+                cur = head
+                curSucess  = cur.successNext
+                curFailure = cur.failureNext
+                break
+            case ")":
+                var target = stack.pop()
+                var head0  = target[0]
+                var cur0   = target[1]
+                curSucess  = target[2]
+                curFailure = target[3]
 
+                cur.failureNext = cur0.failureNext
+                cur.successNext = cur0.successNext
+
+                cur0.failureNext = head.failureNext
+                cur0.successNext = head.successNext
+                cur0.exp = head.exp
+
+                head = head0
+                cur = cur0
+                break
+            case "\\":
+                i++;
+                cur.exp += exp[i]
+                break
+            default:
+                cur.exp += c
+        }
+    }
+
+    return head
+}
+
+function expressionMatch(matchTree, str) {
+    var matchingExp = matchTree.exp.trim()
+    var isSuccess = str.includes(matchingExp)
+
+    if (isSuccess) {
+        var next = matchTree.successNext
+        if (typeof(next) == 'BooleanWrapper') {
+            return next.value;
+        }
+        return expressionMatch(next, str)
+    }
+
+    var next = matchTree.failureNext
+    if (typeof(next) == 'BooleanWrapper') {
+        return next.value;
+    }
+    return expressionMatch(next, str)
 }
 
 function errorMsg(msg, exp, index) {

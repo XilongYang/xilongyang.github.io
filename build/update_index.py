@@ -28,9 +28,11 @@ def post_html():
 
     post_html = ''
     for post_year in sorted(list(post_map.items()), key=lambda x: x[0], reverse=True):
+        post_html += '<div class="post-year-wrapper">'
         post_html += '<h3>' + post_year[0] + '</h3>' + '\n'
         for post_items in sorted(post_year[1], reverse=True):
-            post_html += post_items + '\n'
+            post_html += '<div class="post-wrapper">' + post_items + '\n</div>'
+        post_html += '</div>'
 
     return post_html
 
